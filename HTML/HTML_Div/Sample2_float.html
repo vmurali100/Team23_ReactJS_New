@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mainDiv {
+            background: lightseagreen;
+            border: 1px solid red;
+            overflow: auto;
+        }
+
+        #child1,
+        #child2 {
+            margin: 20px;
+            height: 200px;
+            width: 600px;
+            float: left;
+        }
+
+        #child1 {
+            background: lightblue;
+        }
+
+        #child2 {
+            background: lightpink;
+        }
+
+        #secondElement {
+            background: red;
+            height: 100px;
+        }
+
+        #child3 {
+            background: lightgreen;
+            width: 200px;
+            float: right;
+            height: 200px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mainDiv">
+        <div id="child1"></div>
+        <div id="child2"></div>
+        <div id="child3"></div>
+    </div>
+    <div id="secondElement">
+
+    </div>
+</body>
+
+</html>
