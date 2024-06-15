@@ -1,0 +1,34 @@
+        #mainDiv {
+            background: lightseagreen;
+            border: 1px solid red;
+            overflow: auto;
+        }
+
+        #child1,
+        #child2 {
+            margin: 20px;
+            height: 200px;
+            width: 600px;
+            float: left;
+        }
+
+        #child1 {
+            background: lightblue;
+        }
+
+        #child2 {
+            background: lightpink;
+        }
+
+        #secondElement {
+            background: red;
+            height: 100px;
+        }
+
+        #child3 {
+            background: lightgreen;
+            width: 200px;
+            float: right;
+            height: 200px;
+            margin: 20px;
+        }
