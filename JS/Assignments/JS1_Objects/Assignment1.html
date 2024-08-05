@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // In Literal Way 
+        // var studentEnrollmentSystem = {
+        //     studentID: 1234,
+        //     studentName: "Ram",
+        //     coursesEnrolled: "Front End Development",
+        //     addNewStudents: function () { },
+        //     removeStudents: function () { },
+        //     updateEnrolledCourse: function () { }
+        // }
+
+        // Constructor Function 
+        // function StudentEnrollmentSystem(id, name, course) {
+        //     this.studentID = id;
+        //     this.studentName = name;
+        //     this.coursesEnrolled = course;
+        //     this.addNewStudents = function () { }
+        //     this.removeStudents = function () { }
+        //     this.updateEnrolledCourse = function () { }
+        // }
+
+        // var stuent1 = new StudentEnrollmentSystem(123,"Kiran","UI");
+
+        // console.log(stuent1)
+        // Built In Constuctor functions or Built in Methods 
+        // var StudentEnrollmentSystem = new Object({
+        //     studentID: 1234,
+        //     studentName: "Ram",
+        //     coursesEnrolled: "Front End Development",
+        //     addNewStudents: function () { },
+        //     removeStudents: function () { },
+        //     updateEnrolledCourse: function () { }
+        // })
+
+        // console.log(StudentEnrollmentSystem)
+
+        // Crearing Object with Class 
+        class StudentEnrollmentSystem {
+            constructor(id, name, course) {
+                this.studentID = id;
+                this.studentName = name;
+                this.coursesEnrolled = course;
+                this.addNewStudents = function () { }
+                this.removeStudents = function () { }
+                this.updateEnrolledCourse = function () { }
+            }
+        }
+                var stuent1 = new StudentEnrollmentSystem(123,"Kiran","UI");
+                console.log(stuent1);
+
+    </script>
+</body>
+
+</html>

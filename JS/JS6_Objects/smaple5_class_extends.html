@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Stundet {
+            constructor() {
+                this.city = "Chittoor";
+                this.state = "AP";
+                this.institute = "VMR InfoTech"
+                this.subjects = ["HTML","CSS","JS","ReactJS"],
+                this.package = 500000;
+                this.working = true;
+                this.role;
+            }
+        }
+
+        class StudentDetails extends Stundet {
+            constructor(fname, lname, email) {
+                super()
+                this.fname = fname;
+                this.lname = lname;
+                this.email = email;
+                this.getFullName=function(){ // If you Create a Functions Inside an Object , it is called a Methods .
+                    console.log(this.fname +" "+this.lname)
+                }
+            }
+        }
+
+        // Creating An Instance for An Object 
+        // using a  class to create an Object 
+        var student1 = new StudentDetails("Murali","Krishna","murali@gmail.com");
+        var student2 = new StudentDetails("Ram","Ravi","ram@gmail.com");
+
+
+        // console.log(student1);
+        // console.log(student2);
+        // student1.getFullName();
+        // student2.getFullName()
+
+        for(a in student1){
+            // console.log(a)
+            console.log(student1[a])
+        }
+        
+    </script>
+</body>
+
+</html>

@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-        function Person(fname,lname,email){
+        function Person(fname, lname, email) {
             this.fname = fname;
             this.lname = lname;
             this.email = email;
+            this.getFullName = function () {
+                console.log(this.fname + " " + this.lname);
+            }
         }
 
-        var student1 = new Person("Ram","Krishna","ram@gmail.com");
-        var student2 = new Person("Ram1","Krishna","ram@gmail.com");
-        var student3 = new Person("Ram2","Krishna","ram@gmail.com");
-        var student4 = new Person("Ram3","Krishna","ram@gmail.com");
-        var student5 = new Person("Ram4","Krishna","ram@gmail.com");
+        var student1 = new Person("Ram", "Krishna", "ram@gmail.com");
+        var student2 = new Person("Ram1", "Krishna", "ram@gmail.com");
+        var student3 = new Person("Ram2", "Krishna", "ram@gmail.com");
+        var student4 = new Person("Ram3", "Krishna", "ram@gmail.com");
+        var student5 = new Person("Ram4", "Krishna", "ram@gmail.com");
 
         console.log(student1);
         console.log(student2);
         console.log(student3);
         console.log(student4);
-        console.log(student5);
+        console.log(student5.getFullName());
 
     </script>
 </body>
+
 </html>

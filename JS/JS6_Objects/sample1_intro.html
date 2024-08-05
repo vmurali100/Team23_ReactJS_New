@@ -14,7 +14,10 @@
         var person = {
             fname: "Murali",
             lname: "Krishna",
-            email: "murali@gmail.com"
+            email: "murali@gmail.com",
+            getFullName:function(){
+                console.log(this.fname +"  "+this.lname);
+            }
         };
 
         person.city = "Chittoor "; //Adding a Property with . notation;
@@ -30,7 +33,7 @@
         // document.write(person.email+"<br/>");
         // document.write(person.city+"<br/>");
         // document.write(person.state+"<br/>");
-
+        person.getFullName();
         for (a in person){
             // console.log(person[a])
             document.write(person[a]+"<br/>");
