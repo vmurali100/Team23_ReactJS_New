@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Example</title>
+    <style>
+        #draggable {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            cursor: move;
+            margin-bottom: 20px;
+        }
+
+        #dropzone {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+        }
+
+        #dropzone.active {
+            border-color: green;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="draggable" draggable="true">Drag me</div>
+    <div id="dropzone">Drop here</div>
+
+    <script>
+        var draggableElement = document.getElementById("draggable");
+        var dropableElement = document.getElementById("dropzone");
+
+        draggableElement.addEventListener("dragstart", function (e) {
+            console.log(e.dataTransfer.setData('text/plain', draggableElement.id))
+        })
+        draggable.addEventListener('dragend', () => {
+            console.log('Drag ended');
+        });
+        dropableElement.addEventListener('dragenter', () => {
+            dropableElement.classList.add('active');
+            console.log('Drag entered dropzone');
+        });
+        dropableElement.addEventListener('dragover', (event) => {
+            event.preventDefault(); // Necessary to allow a drop
+            console.log('Drag over dropzone');
+        });
+        dropableElement.addEventListener('dragleave', () => {
+            dropableElement.classList.remove('active');
+            console.log('Drag left dropzone');
+        });
+        dropableElement.addEventListener('drop', (event) => {
+            event.preventDefault();
+            const id = event.dataTransfer.getData('text');
+            const draggableElement = document.getElementById(id);
+            dropableElement.appendChild(draggableElement);
+            dropableElement.classList.remove('active');
+            console.log('Dropped');
+        });
+    </script>
+
+
+</body>
+
+</html>
