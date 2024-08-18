@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scrollIntoView Example</title>
+    <style>
+        body {
+            height: 2000px;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 1000px; /* This will push the container down, so it's initially out of view */
+            padding: 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="scrollToElement()">Scroll to Container</button>
+
+        <div class="container" id="myContainer">
+            <h2>This is a container</h2>
+            <p>This container is initially out of view. When you click the button above, the page will scroll down to this container.</p>
+        </div>
+
+    <script>
+        function scrollToElement() {
+            var element = document.getElementById("myContainer");
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    </script>
+
+</body>
+</html>

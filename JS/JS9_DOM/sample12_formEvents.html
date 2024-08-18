@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <label for="">First Name :</label>
+        <input type="text" name="" id="" onfocus="handleFocus()" onblur="handleBlur()">
+        <button>Add User</button>
+        <button onclick="handleReset()">Reset</button>
+    </form>
+
+    <script>
+        document.querySelector("form").onsubmit=function(e){
+            console.log(e.preventDefault());
+            console.log("Form Submitted !!!");
+            console.log(document.querySelector("form").elements)
+        }
+        function handleReset(){
+            document.querySelector("form").reset();
+
+        }
+
+        function handleFocus(){
+            console.log("You Just Focused On An Input !!")
+        }
+
+        function handleBlur(){
+            console.log("You Just Blurred - (Came out) On An Input !!")
+
+        }
+    </script>
+</body>
+</html>

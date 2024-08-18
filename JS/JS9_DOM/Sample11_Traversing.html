@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{
+            width: 150px;
+            background: red;
+            color: white;
+            margin: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>Item No 1</li>
+        <li>Item No 2</li>
+        <li>Item No 3</li>
+        <li>Item No 4</li>
+        <li>Item No 5</li>
+    </ul>
+    <script>
+        document.querySelector("ul").onclick=function(e){
+            var selectedElement = e.target;
+            var parentNode = selectedElement.parentNode
+            // parentNode.removeChild(selectedElement)
+            // console.log(parentNode.children);
+            // console.log(parentNode.firstElementChild)
+            // console.log(parentNode.lastElementChild)
+            console.log(selectedElement.previousElementSibling)
+
+        }
+    </script>
+</body>
+</html>

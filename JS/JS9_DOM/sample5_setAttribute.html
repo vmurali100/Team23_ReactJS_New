@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .success {
+            color: white;
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="info">Welcome to Attributes Topic !!!</h2>
+    <input type="text" name="" id="myInput" disabled>
+    <button onclick="addAttributeToElement()">Add Attribute</button>
+    <button onclick="removeAttributeFromElement()">Remove Attribute</button>
+    <button onclick="getAllAttributes()">Get Attribute</button>
+    <button onclick="addClassToElement()">Add Attribute</button>
+    <button onclick="removeClassFromElement()">Remove Attribute</button>
+    <button onclick="toggleClassFromElement()">Toggle Attribute</button>
+    
+    <script>
+        function addAttributeToElement() {
+            document.querySelector("h2").setAttribute("class", "success")
+        }
+
+        function removeAttributeFromElement() {
+            document.querySelector("h2").removeAttribute("class", "success")
+        }
+
+        function getAllAttributes() {
+            var allAts = document.querySelector("h2").getAttribute("class")
+            console.log(allAts)
+        }
+
+        function addClassToElement() {
+            document.querySelector("h2").classList.add("success");
+        }
+
+        function removeClassFromElement(){
+            document.querySelector("h2").classList.remove("info")
+        }
+
+        function toggleClassFromElement(){
+            // document.querySelector("h2").toggleAttribute("hidden",true)
+            document.getElementById("myInput").toggleAttribute("disabled")
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #demo{
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo">
+
+    </div>
+
+    <ul>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+    </ul>
+
+    <script>
+        document.getElementById("demo").style.background = "lightgrey"
+        var allItems = document.getElementsByTagName("li");
+        for(i=0;i<allItems.length;i++){
+            allItems[i].style.color="red";
+            allItems[i].style.background="yellow";
+            allItems[i].style.padding="10px";
+            allItems[i].style.margin="5px";
+            allItems[i].style.width="200px";
+
+allItems[i].innerHTML = "Hello From DOM"
+            
+            
+        }
+    </script>
+</body>
+</html>

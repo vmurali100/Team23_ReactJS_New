@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+   
+    <div id="demo"></div>
+    <script>
+        var galleryDetails = [
+            {
+                name: "Mountain View",
+                description: "A beautiful view of mountains during sunset.",
+                imageUrl: "https://images.unsplash.com/photo-1601742338175-0c9b3a3fd1d7"
+            },
+            {
+                name: "Forest Path",
+                description: "A serene path through a dense forest.",
+                imageUrl: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"
+            },
+            {
+                name: "City Skyline",
+                description: "A vibrant city skyline at night.",
+                imageUrl: "https://images.unsplash.com/photo-1496307076893-e7b11d7ebc45"
+            },
+            {
+                name: "Beach Sunrise",
+                description: "A calm beach during sunrise with waves lapping the shore.",
+                imageUrl: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"
+            },
+            {
+                name: "Desert Dunes",
+                description: "Golden sand dunes under a clear blue sky.",
+                imageUrl: "https://images.unsplash.com/photo-1526481280698-03ea1b6b2fd6"
+            }
+        ];
+
+        for(i=0;i<galleryDetails.length;i++){
+            console.log(galleryDetails[i])
+            var para = document.createElement("p");
+            para.innerHTML = galleryDetails[i].name;
+
+            var myIamge = document.createElement("img")
+            myIamge.style.width="200px";
+            myIamge.src = galleryDetails[i].imageUrl;
+            document.getElementById("demo").appendChild(myIamge);
+            document.getElementById("demo").appendChild(para);
+        }
+
+    </script>
+</body>
+
+</html>

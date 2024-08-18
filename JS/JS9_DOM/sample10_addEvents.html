@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <button onclick="clickme()">Click Me</button> -->
+
+    <button>Add Event</button>
+
+    <button id="Remove">Remove Event Listener</button>
+
+    <script>
+        function clickme() {
+            console.log("clickme  Called !!!")
+        }
+        function handleClick (){
+            console.log("Add Event Called !!!")
+        }
+
+        document.querySelector("button").addEventListener("click",handleClick)
+
+        document.getElementById("Remove").onclick = function () {
+            document.querySelector("button").removeEventListener('click', handleClick)
+        }
+    </script>
+</body>
+
+</html>

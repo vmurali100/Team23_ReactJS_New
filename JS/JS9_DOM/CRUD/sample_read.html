@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table border="1" style="width: 100%;">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        var students = [
+            {
+                "id": 1,
+                "name": "John Doe",
+                "age": 28,
+                "email": "johndoe@example.com"
+            },
+            {
+                "id": 2,
+                "name": "Jane Smith",
+                "age": 34,
+                "email": "janesmith@example.com"
+            },
+            {
+                "id": 3,
+                "name": "Michael Brown",
+                "age": 42,
+                "email": "michaelbrown@example.com"
+            },
+            {
+                "id": 4,
+                "name": "Emily Davis",
+                "age": 26,
+                "email": "emilydavis@example.com"
+            },
+            {
+                "id": 5,
+                "name": "David Wilson",
+                "age": 30,
+                "email": "davidwilson@example.com"
+            },
+            {
+                "id": 6,
+                "name": "Sarah Johnson",
+                "age": 22,
+                "email": "sarahjohnson@example.com"
+            },
+            {
+                "id": 7,
+                "name": "Robert Lee",
+                "age": 40,
+                "email": "robertlee@example.com"
+            },
+            {
+                "id": 8,
+                "name": "Linda Harris",
+                "age": 36,
+                "email": "lindaharris@example.com"
+            },
+            {
+                "id": 9,
+                "name": "James Clark",
+                "age": 29,
+                "email": "jamesclark@example.com"
+            },
+            {
+                "id": 10,
+                "name": "Patricia Lewis",
+                "age": 33,
+                "email": "patricialewis@example.com"
+            }
+        ]
+
+        for(i=0;i<students.length;i++){
+            // Create a tr
+            var myTr = document.createElement("tr");
+            for(a in students[i]){
+                var myTd = document.createElement("td");
+                myTd.innerHTML = students[i][a]
+                myTr.appendChild(myTd);
+            }
+            document.querySelector("tbody").appendChild(myTr)
+        }
+    </script>
+</body>
+
+</html>
