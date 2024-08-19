@@ -6,9 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #updateBtn {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
+    <form action="">
+        <label for="">ID :</label>
+        <input type="text" name="" id="id"> <br>
+        <label for="">Name :</label>
+        <input type="text" name="" id="name"> <br>
+        <label for="">Age :</label>
+        <input type="text" name="" id="age"> <br>
+        <label for="">Email :</label>
+        <input type="text" name="" id="email"> <br>
+        <button type="button" onclick="addUser()" id="addBtn">Add User</button>
+        <button type="button" onclick="updateUser()" id="updateBtn">Update User</button>
+    </form>
+    <br>
     <table border="1" style="width: 100%;">
         <thead>
             <th>ID</th>
@@ -20,6 +38,7 @@
         </thead>
         <tbody></tbody>
     </table>
+
     <script>
         var students = [
             {
@@ -51,48 +70,90 @@
                 "name": "David Wilson",
                 "age": 30,
                 "email": "davidwilson@example.com"
-            },
-            {
-                "id": 6,
-                "name": "Sarah Johnson",
-                "age": 22,
-                "email": "sarahjohnson@example.com"
-            },
-            {
-                "id": 7,
-                "name": "Robert Lee",
-                "age": 40,
-                "email": "robertlee@example.com"
-            },
-            {
-                "id": 8,
-                "name": "Linda Harris",
-                "age": 36,
-                "email": "lindaharris@example.com"
-            },
-            {
-                "id": 9,
-                "name": "James Clark",
-                "age": 29,
-                "email": "jamesclark@example.com"
-            },
-            {
-                "id": 10,
-                "name": "Patricia Lewis",
-                "age": 33,
-                "email": "patricialewis@example.com"
             }
+
         ]
 
-        for(i=0;i<students.length;i++){
-            // Create a tr
-            var myTr = document.createElement("tr");
-            for(a in students[i]){
-                var myTd = document.createElement("td");
-                myTd.innerHTML = students[i][a]
-                myTr.appendChild(myTd);
+        function addUser() {
+            var newStudent = {
+                "id": document.getElementById('id').value,
+                "name": document.getElementById("name").value,
+                "age": document.getElementById("age").value,
+                "email": document.getElementById("email").value
             }
-            document.querySelector("tbody").appendChild(myTr)
+            students.push(newStudent);
+            displayStudents()
+            clearForm();
+        }
+
+        function clearForm() {
+            document.getElementById('id').value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("email").value = "";
+        }
+        function displayStudents() {
+            document.querySelector('tbody').innerHTML = ""
+            for (i = 0; i < students.length; i++) {
+                // Create a tr
+                var myTr = document.createElement("tr");
+                for (a in students[i]) {
+                    var myTd = document.createElement("td");
+                    myTd.innerHTML = students[i][a]
+                    myTr.appendChild(myTd);
+                }
+
+                // Edit Td 
+                var editTd = document.createElement('td');
+                var editBtn = document.createElement('button');
+                editBtn.innerHTML = "Edit";
+                editBtn.setAttribute("onclick", "editUser(" + i + ")")
+                editTd.appendChild(editBtn)
+                myTr.appendChild(editTd)
+
+                // Delete Td 
+                var deleteTd = document.createElement('td');
+                var deleteBtn = document.createElement("button");
+                deleteBtn.innerHTML = "Delete";
+                deleteBtn.setAttribute('onclick', "deleteUser(" + i + ")")
+                deleteTd.appendChild(deleteBtn);
+                myTr.appendChild(deleteTd)
+                document.querySelector("tbody").appendChild(myTr)
+            }
+        }
+        displayStudents()
+        var index = null;
+        function editUser(i) {
+            index = i;
+            console.log("editUser Called !!!" + i);
+
+            document.getElementById('id').value = students[i].id;
+            document.getElementById("name").value = students[i].name;
+            document.getElementById("age").value = students[i].age;
+            document.getElementById("email").value = students[i].email;
+            document.getElementById("updateBtn").style.display = "block";
+            document.getElementById("addBtn").style.display = "none";
+
+        }
+
+        function deleteUser(i) {
+            console.log("deleteUser Called !!" + i);
+            students.splice(i, 1);
+            displayStudents()
+        }
+
+        function updateUser() {
+            var newStudent = {
+                "id": document.getElementById('id').value,
+                "name": document.getElementById("name").value,
+                "age": document.getElementById("age").value,
+                "email": document.getElementById("email").value
+            }
+            students [index] = newStudent;
+            displayStudents();
+            clearForm();
+            document.getElementById("updateBtn").style.display = "none";
+            document.getElementById("addBtn").style.display = "block";
         }
     </script>
 </body>
