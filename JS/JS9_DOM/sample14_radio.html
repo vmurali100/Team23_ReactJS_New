@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="">First Name : </label>
+        <input type="text" name="" id="fname"> <br>
+        <label for="">Last Name : </label>
+        <input type="text" name="" id="lname"> <br>
+        <label for="">Gender :</label>
+        <input type="radio" name="gender" value="male">Male 
+        <input type="radio" name="gender" value="female">Female 
+        <input type="radio" name="gender" value="other">Other 
+        <br>
+        <button type="button" onclick="addUser()">Add User</button>
+    </form>
+
+    <script>
+        function addUser(){
+            var user = {
+                fname:document.getElementById("fname").value,
+                lname:document.getElementById("fname").value
+            }
+            var allRadioElements = document.getElementsByName("gender");
+            for(i=0;i<allRadioElements.length;i++){
+                
+                if(allRadioElements[i].checked){
+                    user.gender = allRadioElements[i].value
+                }
+            }
+            console.log(user)
+        }
+    </script>
+</body>
+</html>

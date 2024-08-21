@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="">First Name : </label>
+        <input type="text" name="subjects" id="fname"> <br>
+        <label for="">Last Name : </label>
+        <input type="text" name="subjects" id="lname"> <br>
+        <label for="">SUBJECTS :</label>
+        <input type="checkbox" name="subjects" value="HTML">HTML
+        <input type="checkbox" name="subjects" value="CSS">CSS
+        <input type="checkbox" name="subjects" value="JS">Javascript
+        <input type="checkbox" name="subjects" value="ReactJS">ReactJS
+        <br>
+        <button type="button" onclick="addUser()">Add User</button>
+    </form>
+
+    <script>
+        function addUser(){
+            var user = {
+                fname:document.getElementById("fname").value,
+                lname:document.getElementById("fname").value,
+                subjects:[]
+            }
+            var allCheckBoxElements = document.getElementsByName("subjects");
+            for(i=0;i<allCheckBoxElements.length;i++){
+                
+                if(allCheckBoxElements[i].checked){
+                    user.subjects.push(allCheckBoxElements[i].value)
+                }
+            }
+            console.log(user)
+        }
+    </script>
+</body>
+</html>
