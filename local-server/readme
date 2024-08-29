@@ -1,0 +1,5 @@
+1. run "npm init --yes"
+2. run "npm i json-server"
+3. create a file Called "db.json"
+4. Create a Object in db.json and add a Property
+5. run "json-server --watch db.json"

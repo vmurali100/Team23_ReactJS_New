@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "fullName": "Murali Veesambattu",
+      "gender": "male",
+      "email": "murali.veesambattu@gmail.com",
+      "id": "1234",
+      "classes": "class1"
+    },
+    {
+      "fullName": "V Ram",
+      "gender": "male",
+      "email": "vmurali100@gmail.com",
+      "id": "23456",
+      "classes": "class2"
+    },
+    {
+      "fullName": "Leelavathi KM",
+      "gender": "female",
+      "email": "murali.veesambattu@gmail.com",
+      "id": "123433",
+      "classes": "class2"
+    },
+    {
+      "fullName": "SEKHAR PARK",
+      "gender": "male",
+      "email": "vmurali100@gmail.com",
+      "id": "22222",
+      "classes": "class3"
+    }
+  ]
+}
