@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "fullName": "Murali Veesambattu",
+      "fullName": "Murali VMR",
       "gender": "male",
       "email": "murali.veesambattu@gmail.com",
       "id": "1234",
@@ -19,14 +19,14 @@
       "gender": "female",
       "email": "murali.veesambattu@gmail.com",
       "id": "123433",
-      "classes": "class2"
+      "classes": "class3"
     },
     {
-      "fullName": "SEKHAR PARK",
-      "gender": "male",
-      "email": "vmurali100@gmail.com",
-      "id": "22222",
-      "classes": "class3"
+      "fullName": "Theju MMM",
+      "gender": "female",
+      "email": "murali.veesambattu@gmail.com",
+      "id": "112233",
+      "classes": "class2"
     }
   ]
 }

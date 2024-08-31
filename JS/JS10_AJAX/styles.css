@@ -74,6 +74,16 @@ button.submit-btn {
     border-radius: 4px;
     cursor: pointer;
 }
+button.update-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #89a339;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
+}
 
 button.submit-btn:hover {
     background-color: #388e3c;

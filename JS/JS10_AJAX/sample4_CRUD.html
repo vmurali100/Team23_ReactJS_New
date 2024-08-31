@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="form-container">
+            <h2>Registration Form</h2>
+            <p>Fill out the form carefully for registration</p>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="first-name">Student name</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="First name" required>
+                    <input type="text" id="last-name" name="last-name" placeholder="Last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Please Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Student E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="e.g. myname@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-id">Student ID</label>
+                    <input type="text" id="student-id" name="student-id" placeholder="Student ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="class">List of Classes</label>
+                    <select id="class" name="class" required>
+                        <option value="">Please Select</option>
+                        <option value="class1">Class 1</option>
+                        <option value="class2">Class 2</option>
+                        <option value="class3">Class 3</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" id="update-btn" class="submit-btn" style="display:none;">Update</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Student Records</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Class</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        var students = [];
+        var form = document.getElementById('registration-form');
+        var updateBtn = document.getElementById('update-btn');
+        var currentStudentId = null;
+
+        form.onsubmit = function (e) {
+            e.preventDefault();
+            var student = {
+                fullName: document.getElementById("first-name").value + " " + document.getElementById("last-name").value,
+                gender: document.getElementById("gender").value,
+                email: document.getElementById("email").value,
+                id: document.getElementById("student-id").value,
+                classes: document.getElementById("class").value
+            };
+
+            if (currentStudentId === null) {
+                addStudent(student);
+            } else {
+                updateStudent(student);
+            }
+        };
+
+        function addStudent(student) {
+            var postStudent = new XMLHttpRequest();
+            postStudent.open("POST", "http://localhost:3000/users");
+            postStudent.setRequestHeader("Content-Type", "application/json");
+            postStudent.send(JSON.stringify(student));
+            postStudent.onreadystatechange = function () {
+                if (postStudent.readyState == 4) {
+                    if (postStudent.status == 201) {
+                        console.log("User Added Successfully");
+                        resetForm();
+                        getDataFromServer();
+                    } else {
+                        console.error("Error adding user:", postStudent.statusText);
+                    }
+                }
+            };
+        }
+
+        function updateStudent(student) {
+            var putStudent = new XMLHttpRequest();
+            putStudent.open("PUT", "http://localhost:3000/users/" + currentStudentId);
+            putStudent.setRequestHeader("Content-Type", "application/json");
+            putStudent.send(JSON.stringify(student));
+            putStudent.onreadystatechange = function () {
+                if (putStudent.readyState == 4) {
+                    if (putStudent.status == 200) {
+                        console.log("User Updated Successfully");
+                        resetForm();
+                        getDataFromServer();
+                    } else {
+                        console.error("Error updating user:", putStudent.statusText);
+                    }
+                }
+            };
+        }
+
+        function getDataFromServer() {
+            var getData = new XMLHttpRequest();
+            getData.open("GET", "http://localhost:3000/users");
+            getData.send();
+            getData.onreadystatechange = function () {
+                if (getData.readyState == 4) {
+                    if (getData.status == 200) {
+                        students = JSON.parse(getData.response);
+                        displayAllStudents();
+                    } else {
+                        console.error("Error fetching users:", getData.statusText);
+                    }
+                }
+            };
+        }
+        getDataFromServer();
+
+        function displayAllStudents() {
+            document.querySelector("tbody").innerHTML = "";
+            students.forEach((student) => {
+                var myTr = document.createElement("tr");
+                for (a in student) {
+                    var myTd = document.createElement("td");
+                    myTd.innerHTML = student[a];
+                    myTr.appendChild(myTd);
+                }
+
+                var editBtn = document.createElement("button");
+                editBtn.textContent = "Edit";
+                editBtn.onclick = function () {
+                    editStudent(student);
+                };
+
+                var deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Delete";
+                deleteBtn.onclick = function () {
+                    deleteStudent(student.id);
+                };
+
+                var editTd = document.createElement("td");
+                editTd.appendChild(editBtn);
+                myTr.appendChild(editTd);
+
+                var deleteTd = document.createElement("td");
+                deleteTd.appendChild(deleteBtn);
+                myTr.appendChild(deleteTd);
+
+                document.querySelector("tbody").appendChild(myTr);
+            });
+        }
+
+        function editStudent(student) {
+            document.getElementById("first-name").value = student.fullName.split(" ")[0];
+            document.getElementById("last-name").value = student.fullName.split(" ")[1];
+            document.getElementById("gender").value = student.gender;
+            document.getElementById("email").value = student.email;
+            document.getElementById("student-id").value = student.id;
+            document.getElementById("class").value = student.classes;
+
+            currentStudentId = student.id;
+            updateBtn.style.display = 'inline';
+            form.querySelector('.submit-btn').style.display = 'none';
+        }
+
+        function deleteStudent(id) {
+            var deleteStudent = new XMLHttpRequest();
+            deleteStudent.open("DELETE", "http://localhost:3000/users/" + id);
+            deleteStudent.send();
+            deleteStudent.onreadystatechange = function () {
+                if (deleteStudent.readyState == 4) {
+                    if (deleteStudent.status == 200) {
+                        console.log("User Deleted Successfully");
+                        getDataFromServer();
+                    } else {
+                        console.error("Error deleting user:", deleteStudent.statusText);
+                    }
+                }
+            };
+        }
+
+        function resetForm() {
+            form.reset();
+            currentStudentId = null;
+            updateBtn.style.display = 'none';
+            form.querySelector('.submit-btn').style.display = 'inline';
+        }
+    </script>
+</body>
+
+</html>

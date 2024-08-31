@@ -34,18 +34,19 @@
                 </div>
                 <div class="form-group">
                     <label for="student-id">Student ID</label>
-                    <input type="text" id="student-id" name="student-id" placeholder="Student ID">
+                    <input type="text" id="id" name="student-id" placeholder="Student ID">
                 </div>
                 <div class="form-group">
                     <label for="class">List of Classes</label>
-                    <select id="class" name="class">
+                    <select id="classes" name="class">
                         <option value="">Please Select</option>
                         <option value="class1">Class 1</option>
                         <option value="class2">Class 2</option>
                         <option value="class3">Class 3</option>
                     </select>
                 </div>
-                <button type="submit" class="submit-btn">Submit</button>
+                <button class="submit-btn" type="button">Submit</button>
+                <button class="update-btn" type="button">Update</button>
             </form>
         </div>
 
@@ -54,10 +55,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
-                        <th>Email</th>
                         <th>Gender</th>
+                        <th>Email</th>
+                        <th>ID</th>
                         <th>Class</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -71,16 +72,16 @@
     </div>
     <script>
         var students = []
-        var form = document.querySelector('form');
+        var form = document.querySelector('.submit-btn');
 
-        form.onsubmit = function (e) {
+        form.onclick = function (e) {
             e.preventDefault();
             var student = {
                 fullName: document.getElementById("first-name").value + " " + document.getElementById("last-name").value,
                 gender: document.getElementById("gender").value,
                 email: document.getElementById("email").value,
-                id: document.getElementById("student-id").value,
-                classes: document.getElementById("class").value
+                id: document.getElementById("id").value,
+                classes: document.getElementById("classes").value
             }
 
             // Creating an Instance of XMLHttpRequest
@@ -112,15 +113,83 @@
         function displaAllStudents(){
             document.querySelector("tbody").innerHTML = ""
             console.log("students",students)
-            students.forEach((student)=>{
+            students.forEach((student,i)=>{
                 var myTr = document.createElement("tr");
                 for(a in student){
                     var myTd = document.createElement("td");
                     myTd.innerHTML = student[a]
                     myTr.appendChild(myTd);
                 }
+                var editTd = document.createElement("td");
+                var editButton = document.createElement("button");
+                editButton.setAttribute("onclick","editUser("+i+")")
+
+                editButton.innerHTML = "Edit"
+                editTd.appendChild(editButton)
+                myTr.appendChild(editTd);
+
+                var deleteTd = document.createElement("td");
+                var deleteButton = document.createElement("button")
+                deleteButton.innerHTML ="Delete";
+                deleteButton.setAttribute("onclick","deleteUser("+i+")")
+                deleteTd.appendChild(deleteButton)
+                myTr.appendChild(deleteTd);
                 document.querySelector("tbody").appendChild(myTr);
             })
+        }
+
+        function deleteUser(i){
+            var deleteData = new XMLHttpRequest();
+            deleteData.open("DELETE","http://localhost:3000/users/"+students[i].id);
+            deleteData.send();
+            deleteData.onreadystatechange = function(){
+                if(deleteData.readyState == 4 && deleteData.status == 200){
+                    getDataFromServer();
+                }
+            }
+            
+        }
+        var index = null;
+        function editUser(i){
+            index=i;
+            console.log(students[i])
+            var editStudent = students[i];
+            for(a in editStudent){
+                console.log(a)
+                if(a !== "fullName"){
+                    document.getElementById(a).value = editStudent[a]
+                }else{
+                    var firstName = editStudent[a].split(" ")[0]
+                    var lastName = editStudent[a].split(" ")[1]
+                    document.getElementById("first-name").value = firstName
+                    document.getElementById("last-name").value = lastName
+                }
+            }
+            document.querySelector(".update-btn").style.display="block";
+            document.querySelector(".submit-btn").style.display="none";
+        }
+
+        document.querySelector(".update-btn").onclick=function(e){
+            e.preventDefault();
+            console.log("Updated Caled !!");
+            var student = {
+                fullName: document.getElementById("first-name").value + " " + document.getElementById("last-name").value,
+                gender: document.getElementById("gender").value,
+                email: document.getElementById("email").value,
+                id: document.getElementById("id").value,
+                classes: document.getElementById("classes").value
+            }
+            var postStudent = new XMLHttpRequest();
+            postStudent.open("PUT", "http://localhost:3000/users/"+students[index].id);
+            postStudent.setRequestHeader("Content-Type", "Application/json");
+            postStudent.send(JSON.stringify(student));
+            postStudent.onreadystatechange = function (){
+                if(postStudent.readyState == 4 && postStudent.status == 201){
+                    console.log("User Added Successfully ");
+                    getDataFromServer()
+                }
+            }
+            
         }
     </script>
 </body>
