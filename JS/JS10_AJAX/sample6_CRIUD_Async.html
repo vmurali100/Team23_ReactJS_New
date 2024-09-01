@@ -72,19 +72,10 @@
     </div>
     <script>
         var students = [];
-        function getDataFromServer() {
-            return new Promise((resolve, reject) => {
-                var getData = new XMLHttpRequest();
-                getData.open("GET", "http://localhost:3000/users");
-                getData.send();
-                getData.onreadystatechange = function () {
-                    if (getData.readyState == 4 && getData.status == 200) {
-                        students = JSON.parse(getData.response);
-                        resolve();
-                        // failure();
-                    }
-                }
-            })
+        async function getDataFromServer() {
+            var rawdata = await fetch("http://localhost:3000/users");
+            students = await rawdata.json();
+            displaAllStudents();
         }
 
         function displaAllStudents() {
@@ -115,14 +106,7 @@
             })
         }
 
-
-        getDataFromServer().then(function(){
-            displaAllStudents()
-        }).catch(function (){
-            console.log("Sorry .. Some thing went wrong !!!")
-        }).finally(function(){
-            console.log("Some How Code Excution Completed !!!")
-        })
+        getDataFromServer()
 
     </script>
 </body>

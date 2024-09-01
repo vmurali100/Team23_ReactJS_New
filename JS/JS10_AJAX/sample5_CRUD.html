@@ -73,17 +73,12 @@
     <script>
         var students = [];
         function getDataFromServer() {
-            return new Promise((resolve, reject) => {
-                var getData = new XMLHttpRequest();
-                getData.open("GET", "http://localhost:3000/users");
-                getData.send();
-                getData.onreadystatechange = function () {
-                    if (getData.readyState == 4 && getData.status == 200) {
-                        students = JSON.parse(getData.response);
-                        resolve();
-                        // failure();
-                    }
-                }
+            fetch("http://localhost:3000/users").then(function (rawdata) {
+                return rawdata.json()
+            }).then(function (actualData) {
+                console.log(actualData)
+                students = actualData;
+                displaAllStudents();
             })
         }
 
@@ -115,14 +110,7 @@
             })
         }
 
-
-        getDataFromServer().then(function(){
-            displaAllStudents()
-        }).catch(function (){
-            console.log("Sorry .. Some thing went wrong !!!")
-        }).finally(function(){
-            console.log("Some How Code Excution Completed !!!")
-        })
+        getDataFromServer()
 
     </script>
 </body>
