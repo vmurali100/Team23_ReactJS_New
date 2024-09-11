@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #weatherInfo{
+            display: none;
+        }
+    </style>
+</head>
+<body style="text-align: center;">
+    <!-- <input type="text" name="" id="cityName" placeholder="Enter City Name"> -->
+     <select name="" id="cityName" onchange="getCityWeather()">
+
+     </select>
+     <br><br>
+     <div id="weatherInfo">
+        City Name : <span id="cityNameInfo"></span> <br>
+        Weather : <span id="weather"></span> <br>
+        Temperature : <span id="temperature"></span> <br>
+        Humidity : <span id="humidity"></span> <br>
+        Description : <span id="description"></span> <br>
+     </div>
+    <!-- <button onclick="getCityName()">
+        Get Weather
+    </button> -->
+
+    <script>
+        function getCityWeather(){
+            var cityName = document.getElementById("cityName").value;
+            console.log(cityName)
+            var url = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=e2b22ba80ee18eab98485c11526c987d";
+            fetch(url).then(function (rawdata){
+                return rawdata.json();
+            }).then(function (data){
+                console.log(data);
+                document.getElementById("weatherInfo").style.display = "block";
+                document.getElementById("cityNameInfo").innerHTML = data.name;
+                document.getElementById("weather").innerHTML = data.weather[0].main;
+                document.getElementById("temperature").innerHTML = data.main.temp;
+                document.getElementById("humidity").innerHTML = data.main.humidity;
+                document.getElementById("description").innerHTML = data.weather[0].description;
+            })
+        }
+
+        function displayCities(cities){
+            var cityName = document.getElementById("cityName");
+            for(var i=0;i<cities.length;i++){
+                var option = document.createElement("option");
+                option.value = cities[i].name;
+                option.innerHTML = cities[i].name;
+                cityName.appendChild(option);
+            }
+
+        }
+
+        function getallCitjies(){
+            var url = "http://localhost:3000/cities";
+            fetch(url).then(function (rawdata){
+                return rawdata.json();
+            }).then(function (data){
+                console.log(data.cities);
+                displayCities(data.cities)
+                
+            })
+        }
+        getallCitjies();
+    </script>
+</body>
+</html>
