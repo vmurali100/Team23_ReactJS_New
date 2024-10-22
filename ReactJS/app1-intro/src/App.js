@@ -1,5 +1,6 @@
 import Kumar from "./Components/Kumar";
 import NewUser from "./Components/NewUser";
+import ParentComp from "./Components/ParentComp";
 import { Sam } from "./Components/Sam";
 import Student from "./Components/Student";
 import User from "./Components/User";
@@ -13,7 +14,8 @@ function App() {
     <div>
       {/* <Student /> */}
       {/* <User/> */}
-      <NewUser/>
+      {/* <NewUser/> */}
+      <ParentComp/>
     </div>
   );
 }
