@@ -1,7 +1,8 @@
 import { Component } from "react";
-
+import content from './content.json'
 export class Header extends Component {
   render() {
+    console.log(content)
     return (
       <div>
         <header>
@@ -17,21 +18,11 @@ export class Header extends Component {
                   <div class="menu-items">
                     <div class="menu">
                       <ul>
-                        <li>
-                          <a href="index.html">Home</a>
-                        </li>
-                        <li>
-                          <a href="about-us.html">About Us</a>
-                        </li>
-                        <li>
-                          <a href="services.html">Services</a>
-                        </li>
-                        <li>
-                          <a href="blog.html">Blog</a>
-                        </li>
-                        <li>
-                          <a href="contact-us.html">Contact Us</a>
-                        </li>
+                        {content.map((val)=>{
+                          return <li>
+                            <a href="">{val.name}</a>
+                          </li>
+                        })}
                       </ul>
                     </div>
                   </div>

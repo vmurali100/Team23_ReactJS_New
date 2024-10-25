@@ -1,0 +1,22 @@
+[
+    {
+        "name":"Murali",
+        "role":"Developer",
+        "imageAddress":"assets/images/team/4.jpg"
+    },
+    {
+        "name":"RR",
+        "role":"Developer",
+        "imageAddress":"assets/images/team/3.jpg"
+    },
+    {
+        "name":"SS",
+        "role":"Developer",
+        "imageAddress":"assets/images/team/2.jpg"
+    },
+    {
+        "name":"LL",
+        "role":"Developer",
+        "imageAddress":"assets/images/team/1.jpg"
+    }
+]

@@ -3,6 +3,7 @@ import './App.css';
 import { Header } from './Components/Header';
 import { Banner } from './Components/Banner';
 import { Popular } from './Components/Popular';
+import Team from './Components/Team';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header/>
       <Banner/>
       <Popular/>
+      <Team/>
     </div>
   );
 }

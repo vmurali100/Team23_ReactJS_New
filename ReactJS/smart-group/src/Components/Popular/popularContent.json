@@ -1,0 +1,50 @@
+{
+    "heading":"Popular Category",
+    "items":[
+        {
+            "imageName":"assets/images/icons/design.png",
+            "service":"DEVELOPMENT",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/budget.png",
+            "service":"accounting",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/monitor.png",
+            "service":"Software",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/art.png",
+            "service":"Arts And Design ",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/mail.png",
+            "service":"Marketing ",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/photo.png",
+            "service":"Photography ",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/gym.png",
+            "service":"Health fitness ",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/account.png",
+            "service":"Life Style ",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        },
+        {
+            "imageName":"assets/images/icons/coin.png",
+            "service":"Business ",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit.Facilis molestias excepturi fugit, similique laborum necessitatibus?"
+        }
+    ]
+}
