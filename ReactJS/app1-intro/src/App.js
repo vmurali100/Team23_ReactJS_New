@@ -2,6 +2,7 @@ import Kumar from "./Components/Kumar";
 import NewUser from "./Components/NewUser";
 import ParentComp from "./Components/ParentComp";
 import { Sam } from "./Components/Sam";
+import SampleChart from "./Components/SampleChart";
 import Student from "./Components/Student";
 import User from "./Components/User";
 import Abc from "./Shekar";
@@ -15,7 +16,8 @@ function App() {
       {/* <Student /> */}
       {/* <User/> */}
       {/* <NewUser/> */}
-      <ParentComp/>
+      {/* <ParentComp/> */}
+      <SampleChart/>
     </div>
   );
 }
