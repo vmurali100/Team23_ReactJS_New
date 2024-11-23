@@ -13,10 +13,7 @@ import Murali, { MuraliKrishna, Theju } from "./Theju";
 function App() {
   return (
     <div>
-      {/* <Student /> */}
-      {/* <User/> */}
-      {/* <NewUser/> */}
-      {/* <ParentComp/> */}
+  
       <SampleChart/>
     </div>
   );
