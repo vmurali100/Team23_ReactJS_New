@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-5">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-4 text-center">Shopping Cart</h1>
+
+    <!-- Product Form -->
+    <div class="mb-6">
+      <h2 class="text-lg font-semibold mb-2">Add Product</h2>
+      <div class="flex gap-4 mb-4">
+        <input id="product-id" type="text" placeholder="Product ID" class="w-full p-2 border rounded">
+        <input id="product-name" type="text" placeholder="Product Name" class="w-full p-2 border rounded">
+      </div>
+      <div class="flex gap-4">
+        <input id="product-price" type="number" placeholder="Price" class="w-full p-2 border rounded">
+        <input id="product-quantity" type="number" placeholder="Quantity" class="w-full p-2 border rounded">
+      </div>
+      <button id="add-product" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Add to Cart
+      </button>
+    </div>
+
+    <!-- Cart Details -->
+    <div class="mb-6">
+      <h2 class="text-lg font-semibold mb-2">Cart Items</h2>
+      <table class="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th class="border p-2">Product ID</th>
+            <th class="border p-2">Name</th>
+            <th class="border p-2">Price</th>
+            <th class="border p-2">Quantity</th>
+            <th class="border p-2">Total</th>
+            <th class="border p-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+          <!-- Dynamic Cart Items -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Total Price -->
+    <div class="text-right">
+      <h3 class="text-xl font-semibold">Total: <span id="total-price">0</span></h3>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

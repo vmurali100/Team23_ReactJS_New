@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <form>
+        <textarea name="" id="comment">
+
+        </textarea>
+        <br>
+        <button onclick="post.getComments()" type="button">Get Comments</button>
+        <button type="button" onclick="post.increaseLikes()" id="likesBtn">Likes 0</button>
+
+    </form>
+    <hr>
+    <ul>
+
+    </ul>
+
+    <script>
+        class SocialPost {
+            constructor() {
+                this.comments = ["Comment 1","Comment 2"]
+                this.likes = 0;
+            }
+            getComments() {
+                var userInput = document.getElementById("comment").value;
+                this.comments.push(userInput)
+                document.getElementById("comment").value = ""
+                this.displayComments()
+            }
+            displayComments() {
+                document.querySelector("ul").innerHTML = ""
+                this.comments.forEach(function (comment) {
+                    var myLi = document.createElement("li")
+                    myLi.innerHTML = comment;
+                    document.querySelector("ul").appendChild(myLi)
+                })
+            }
+            increaseLikes() {
+                this.likes++;
+                document.getElementById("likesBtn").innerHTML = "Likes " + this.likes
+            }
+        }
+      
+        var post = new SocialPost();
+        post.displayComments()
+
+
+
+
+
+    </script>
+</body>
+
+</html>

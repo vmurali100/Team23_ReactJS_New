@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Ticket Booking System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-8">Movie Ticket Booking System</h1>
+
+    <!-- Seat Display Section -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Available Seats</h2>
+      <div id="seatGrid" class="grid grid-cols-5 gap-4">
+        <!-- Seats will be displayed dynamically -->
+      </div>
+    </div>
+
+    <!-- Actions Section -->
+    <div class="bg-white shadow-md rounded p-4">
+      <h2 class="text-xl font-semibold mb-4">Actions</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <input 
+          type="text" 
+          id="seatNumberInput" 
+          placeholder="Enter Seat Number (e.g., S1)" 
+          class="border p-2 rounded w-full"
+        />
+        <button 
+          onclick="bookSeat()" 
+          class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Book Seat
+        </button>
+        <button 
+          onclick="cancelSeat()" 
+          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+          Cancel Seat
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Base Seat class
+    class Seat {
+      constructor(seatNumber) {
+        this.seatNumber = seatNumber;
+        this.isBooked = false;
+      }
+
+      bookSeat() {
+        if (this.isBooked) {
+          alert(`Seat ${this.seatNumber} is already booked.`);
+        } else {
+          this.isBooked = true;
+          alert(`Seat ${this.seatNumber} booked successfully.`);
+        }
+      }
+
+      cancelSeat() {
+        if (!this.isBooked) {
+          alert(`Seat ${this.seatNumber} is not booked.`);
+        } else {
+          this.isBooked = false;
+          alert(`Seat ${this.seatNumber} booking canceled.`);
+        }
+      }
+
+      getStatus() {
+        return this.isBooked ? "Booked" : "Available";
+      }
+    }
+
+    // VIP Seat class extending Seat
+    class VIPSeat extends Seat {
+      constructor(seatNumber) {
+        super(seatNumber);
+        this.isVIP = true;
+      }
+
+      bookSeat() {
+        if (this.isBooked) {
+          alert(`VIP Seat ${this.seatNumber} is already booked.`);
+        } else {
+          this.isBooked = true;
+          alert(`VIP Seat ${this.seatNumber} booked successfully.`);
+        }
+      }
+
+      getStatus() {
+        return this.isBooked ? "Booked (VIP)" : "Available (VIP)";
+      }
+    }
+
+    // Theater class to manage seats
+    class Theater {
+      constructor() {
+        this.seats = [];
+      }
+
+      addSeat(seat) {
+        this.seats.push(seat);
+      }
+
+      getSeat(seatNumber) {
+        return this.seats.find(seat => seat.seatNumber === seatNumber);
+      }
+
+      renderSeats() {
+        const seatGrid = document.getElementById("seatGrid");
+        seatGrid.innerHTML = ""; // Clear previous seat grid
+
+        this.seats.forEach(seat => {
+          const seatElement = document.createElement("div");
+          seatElement.className = `p-4 rounded text-center ${
+            seat.isBooked ? "bg-red-500 text-white" : "bg-green-500 text-white"
+          } cursor-pointer`;
+          seatElement.innerText = `${seat.seatNumber}\n(${seat.getStatus()})`;
+          seatElement.onclick = () => alert(`${seat.seatNumber}: ${seat.getStatus()}`);
+          seatGrid.appendChild(seatElement);
+        });
+      }
+    }
+
+    // Initialize theater and seats
+    const theater = new Theater();
+
+    // Add Regular and VIP seats
+    for (let i = 1; i <= 15; i++) {
+      const seat = i <= 5 ? new VIPSeat(`S${i}`) : new Seat(`S${i}`);
+      theater.addSeat(seat);
+    }
+
+    // Render initial seats
+    theater.renderSeats();
+
+    // Book a seat
+    function bookSeat() {
+      const seatNumber = document.getElementById("seatNumberInput").value.trim();
+      const seat = theater.getSeat(seatNumber);
+
+      if (seat) {
+        seat.bookSeat();
+        theater.renderSeats();
+      } else {
+        alert("Invalid seat number.");
+      }
+
+      document.getElementById("seatNumberInput").value = ""; // Clear input
+    }
+
+    // Cancel a seat
+    function cancelSeat() {
+      const seatNumber = document.getElementById("seatNumberInput").value.trim();
+      const seat = theater.getSeat(seatNumber);
+
+      if (seat) {
+        seat.cancelSeat();
+        theater.renderSeats();
+      } else {
+        alert("Invalid seat number.");
+      }
+
+      document.getElementById("seatNumberInput").value = ""; // Clear input
+    }
+  </script>
+</body>
+</html>

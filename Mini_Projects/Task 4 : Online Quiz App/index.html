@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Quiz App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Online Quiz App</h1>
+
+    <!-- Quiz Container -->
+    <div id="quizContainer" class="bg-white shadow-md rounded-lg p-6">
+      <!-- Quiz Content will be dynamically inserted here -->
+    </div>
+
+    <!-- Result Section -->
+    <div id="resultSection" class="mt-6 hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+      <p id="resultText"></p>
+    </div>
+
+    <!-- Restart Button -->
+    <button id="restartQuiz" class="hidden mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+      Restart Quiz
+    </button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

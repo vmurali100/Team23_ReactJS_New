@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Address Book</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-8">Digital Address Book</h1>
+
+    <!-- Add Contact Section -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Add Contact</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <input 
+          type="text" 
+          id="contactName" 
+          placeholder="Name" 
+          class="border p-2 rounded w-full"
+        />
+        <input 
+          type="email" 
+          id="contactEmail" 
+          placeholder="Email" 
+          class="border p-2 rounded w-full"
+        />
+        <input 
+          type="tel" 
+          id="contactPhone" 
+          placeholder="Phone" 
+          class="border p-2 rounded w-full"
+        />
+        <button 
+          onclick="addContact()" 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Add Contact
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Contact Section -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Search Contacts</h2>
+      <input 
+        type="text" 
+        id="searchQuery" 
+        placeholder="Search by name or email" 
+        class="border p-2 rounded w-full mb-4"
+        oninput="searchContacts()"
+      />
+    </div>
+
+    <!-- Contact List Section -->
+    <div class="bg-white shadow-md rounded p-4">
+      <h2 class="text-xl font-semibold mb-4">Contact List</h2>
+      <ul id="contactList" class="space-y-4">
+        <!-- Contact details will be displayed dynamically -->
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Address Book object to manage contacts
+    const addressBook = {
+      contacts: [],
+
+      // Add a new contact
+      addContact(name, email, phone) {
+        this.contacts.push({ name, email, phone });
+        this.renderContacts();
+      },
+
+      // Edit a contact
+      editContact(oldEmail, updatedContact) {
+        const index = this.contacts.findIndex(contact => contact.email === oldEmail);
+        if (index !== -1) {
+          this.contacts[index] = { ...this.contacts[index], ...updatedContact };
+          this.renderContacts();
+        }
+      },
+
+      // Delete a contact
+      deleteContact(email) {
+        this.contacts = this.contacts.filter(contact => contact.email !== email);
+        this.renderContacts();
+      },
+
+      // Search contacts by name or email
+      searchContacts(query) {
+        return this.contacts.filter(contact =>
+          contact.name.toLowerCase().includes(query.toLowerCase()) ||
+          contact.email.toLowerCase().includes(query.toLowerCase())
+        );
+      },
+
+      // Render contacts dynamically
+      renderContacts(query = "") {
+        const contactList = document.getElementById("contactList");
+        contactList.innerHTML = "";
+
+        const contactsToRender = query ? this.searchContacts(query) : this.contacts;
+
+        if (contactsToRender.length === 0) {
+          contactList.innerHTML = `<li class="text-gray-500">No contacts found.</li>`;
+          return;
+        }
+
+        contactsToRender.forEach(contact => {
+          const contactElement = document.createElement("li");
+          contactElement.className = "border p-4 rounded bg-gray-100 flex justify-between items-center";
+
+          contactElement.innerHTML = `
+            <div>
+              <p><strong>Name:</strong> ${contact.name}</p>
+              <p><strong>Email:</strong> ${contact.email}</p>
+              <p><strong>Phone:</strong> ${contact.phone}</p>
+            </div>
+            <div class="space-x-2">
+              <button onclick="editContactPrompt('${contact.email}')" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Edit</button>
+              <button onclick="deleteContact('${contact.email}')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</button>
+            </div>
+          `;
+
+          contactList.appendChild(contactElement);
+        });
+      },
+    };
+
+    // Add a contact
+    function addContact() {
+      const name = document.getElementById("contactName").value.trim();
+      const email = document.getElementById("contactEmail").value.trim();
+      const phone = document.getElementById("contactPhone").value.trim();
+
+      if (!name || !email || !phone) {
+        alert("All fields are required.");
+        return;
+      }
+
+      addressBook.addContact(name, email, phone);
+
+      // Clear input fields
+      document.getElementById("contactName").value = "";
+      document.getElementById("contactEmail").value = "";
+      document.getElementById("contactPhone").value = "";
+    }
+
+    // Edit a contact
+    function editContactPrompt(email) {
+      const contact = addressBook.contacts.find(contact => contact.email === email);
+      if (contact) {
+        const newName = prompt("Enter new name:", contact.name) || contact.name;
+        const newPhone = prompt("Enter new phone number:", contact.phone) || contact.phone;
+        addressBook.editContact(email, { name: newName, phone: newPhone });
+      }
+    }
+
+    // Delete a contact
+    function deleteContact(email) {
+      if (confirm("Are you sure you want to delete this contact?")) {
+        addressBook.deleteContact(email);
+      }
+    }
+
+    // Search contacts
+    function searchContacts() {
+      const query = document.getElementById("searchQuery").value.trim();
+      addressBook.renderContacts(query);
+    }
+
+    // Initial render
+    addressBook.renderContacts();
+  </script>
+</body>
+</html>

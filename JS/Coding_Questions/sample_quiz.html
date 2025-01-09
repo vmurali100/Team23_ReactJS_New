@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+</head>
+
+<body>
+    <h2 id="question"></h2>
+    <ul></ul>
+    <script>
+        var questions = [
+            {
+                "question": "Which language is primarily used for web development?",
+                "options": {
+                    "A": "Python",
+                    "B": "JavaScript",
+                    "C": "C++",
+                    "D": "Java"
+                },
+                "correctAnswer": "B"
+            },
+            {
+                "question": "What is the capital of India?",
+                "options": {
+                    "A": "Mumbai",
+                    "B": "New Delhi",
+                    "C": "Kolkata",
+                    "D": "Bengaluru"
+                },
+                "correctAnswer": "B"
+            },
+            {
+                "question": "Which planet is known as the 'Red Planet'?",
+                "options": {
+                    "A": "Venus",
+                    "B": "Mars",
+                    "C": "Jupiter",
+                    "D": "Saturn"
+                },
+                "correctAnswer": "B"
+            },
+            {
+                "question": "What is the output of `console.log(2 + '2')` in JavaScript?",
+                "options": {
+                    "A": "22",
+                    "B": "4",
+                    "C": "NaN",
+                    "D": "Undefined"
+                },
+                "correctAnswer": "A"
+            },
+            {
+                "question": "Which data structure uses the Last In, First Out (LIFO) principle?",
+                "options": {
+                    "A": "Queue",
+                    "B": "Stack",
+                    "C": "Array",
+                    "D": "Linked List"
+                },
+                "correctAnswer": "B"
+            }
+        ];
+
+        class QuizApp {
+            constructor(questionsInput) {
+                this.allQuestions = questionsInput;
+                this.currentQuestion = 0;
+                this.score = 0;
+            }
+            displayQuestions() {
+                // Clear previous options
+                document.querySelector("ul").innerHTML = "";
+
+                var currentQuestionToDisplay = this.allQuestions[this.currentQuestion];
+                console.log(currentQuestionToDisplay);
+                document.getElementById("question").innerHTML = currentQuestionToDisplay.question;
+                for (var key in currentQuestionToDisplay.options) {
+                    var myLi = document.createElement("li");
+                    myLi.innerHTML = `${key}: ${currentQuestionToDisplay.options[key]}`;
+                    myLi.setAttribute("value", key);
+                    document.querySelector("ul").appendChild(myLi);
+                    myLi.addEventListener('click', (event) => this.checkCorrectAnswers(event));
+                }
+            }
+            checkCorrectAnswers(event) {
+                var currentQuestionToDisplay = this.allQuestions[this.currentQuestion];
+                if (currentQuestionToDisplay.correctAnswer === event.target.getAttribute("value")) {
+                    this.score++;
+                }
+                this.currentQuestion++;
+                if (this.currentQuestion < this.allQuestions.length) {
+                    this.displayQuestions();
+                } else {
+                    document.getElementById("question").innerHTML = `Quiz Complete! Your score is: ${this.score}/${this.allQuestions.length}`;
+                    document.querySelector("ul").innerHTML = ""; // Clear options after quiz
+                }
+            }
+        }
+
+        var quiz = new QuizApp(questions);
+        quiz.displayQuestions();
+        console.log(quiz);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Library Management System</h1>
+
+    <!-- Add Book Form -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Add a New Book</h2>
+      <input id="bookTitle" type="text" class="w-full p-3 border rounded-lg mb-4" placeholder="Book Title">
+      <input id="bookAuthor" type="text" class="w-full p-3 border rounded-lg mb-4" placeholder="Author">
+      <button id="addBook" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+        Add Book
+      </button>
+    </div>
+
+    <!-- Book List Section -->
+    <div id="bookList" class="space-y-4">
+      <!-- Books will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

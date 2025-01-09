@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-8">E-Commerce Cart Management</h1>
+
+    <!-- Add Product Form -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Add Product</h2>
+      <div class="flex flex-wrap gap-4">
+        <input type="text" id="productId" placeholder="Product ID" class="border p-2 rounded w-full sm:w-1/4" />
+        <input type="text" id="productName" placeholder="Product Name" class="border p-2 rounded w-full sm:w-1/4" />
+        <input type="number" id="productPrice" placeholder="Price" class="border p-2 rounded w-full sm:w-1/4" />
+        <input type="number" id="productQuantity" placeholder="Quantity" class="border p-2 rounded w-full sm:w-1/4" />
+        <button 
+          onclick="addProduct()" 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Cart Details -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Cart Details</h2>
+      <div id="cartDetails" class="text-gray-700">
+        <!-- Cart items will be displayed here dynamically -->
+        <p class="text-center text-gray-500">No items in the cart.</p>
+      </div>
+    </div>
+
+    <!-- Total Price -->
+    <div class="bg-white shadow-md rounded p-4">
+      <h2 class="text-xl font-semibold mb-4">Total Price</h2>
+      <p id="totalPrice" class="text-2xl font-bold text-center">₹0.00</p>
+    </div>
+  </div>
+
+  <script>
+    // Cart object
+    const cart = {};
+
+    // Add product to cart
+    function addProduct() {
+      const productId = document.getElementById('productId').value.trim();
+      const productName = document.getElementById('productName').value.trim();
+      const productPrice = parseFloat(document.getElementById('productPrice').value.trim());
+      const productQuantity = parseInt(document.getElementById('productQuantity').value.trim(), 10);
+
+      if (!productId || !productName || isNaN(productPrice) || isNaN(productQuantity) || productQuantity <= 0) {
+        alert('Please enter valid product details.');
+        return;
+      }
+
+      // Add or update product in the cart
+      if (!cart[productId]) {
+        cart[productId] = { name: productName, price: productPrice, quantity: productQuantity };
+      } else {
+        cart[productId].quantity += productQuantity;
+      }
+
+      // Clear input fields
+      document.getElementById('productId').value = '';
+      document.getElementById('productName').value = '';
+      document.getElementById('productPrice').value = '';
+      document.getElementById('productQuantity').value = '';
+
+      updateCartDetails();
+    }
+
+    // Remove product from cart
+    function removeProduct(productId) {
+      if (cart[productId]) {
+        delete cart[productId];
+        updateCartDetails();
+      }
+    }
+
+    // Update cart details
+    function updateCartDetails() {
+      const cartDetails = document.getElementById('cartDetails');
+      cartDetails.innerHTML = '';
+
+      const keys = Object.keys(cart);
+      if (keys.length === 0) {
+        cartDetails.innerHTML = '<p class="text-center text-gray-500">No items in the cart.</p>';
+        document.getElementById('totalPrice').innerText = '₹0.00';
+        return;
+      }
+
+      keys.forEach(productId => {
+        const { name, price, quantity } = cart[productId];
+        const itemRow = document.createElement('div');
+        itemRow.className = 'flex justify-between items-center border-b py-2';
+
+        itemRow.innerHTML = `
+          <div class="w-1/4 font-semibold">${name}</div>
+          <div class="w-1/4">₹${price.toFixed(2)}</div>
+          <div class="w-1/4">${quantity}</div>
+          <div class="w-1/4 flex justify-end">
+            <button 
+              onclick="removeProduct('${productId}')" 
+              class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+              Remove
+            </button>
+          </div>
+        `;
+        cartDetails.appendChild(itemRow);
+      });
+
+      updateTotalPrice();
+    }
+
+    // Calculate and update total price
+    function updateTotalPrice() {
+      const total = Object.values(cart).reduce((sum, { price, quantity }) => sum + price * quantity, 0);
+      document.getElementById('totalPrice').innerText = `₹${total.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>

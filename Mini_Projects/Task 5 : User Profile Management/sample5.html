@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-8">User Profile Management</h1>
+
+    <!-- Add User Form -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Add User</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <input type="text" id="userName" placeholder="Name" class="border p-2 rounded w-full" />
+        <input type="email" id="userEmail" placeholder="Email" class="border p-2 rounded w-full" />
+        <select id="userRole" class="border p-2 rounded w-full">
+          <option value="Subscriber">Subscriber</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+      <button 
+        onclick="addUser()" 
+        class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600">
+        Add User
+      </button>
+    </div>
+
+    <!-- User List -->
+    <div id="userList" class="bg-white shadow-md rounded p-4">
+      <h2 class="text-xl font-semibold mb-4">User Profiles</h2>
+      <ul id="usersContainer" class="space-y-4">
+        <!-- User profiles will be displayed dynamically -->
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Base User class
+    class User {
+      constructor(name, email) {
+        this.name = name;
+        Object.defineProperty(this, "email", {
+          value: email,
+          writable: false, // Restrict email modification
+          enumerable: true,
+        });
+        this.preferences = {};
+      }
+
+      updatePreferences(newPreferences) {
+        Object.assign(this.preferences, newPreferences);
+      }
+
+      getProfile() {
+        return {
+          name: this.name,
+          email: this.email,
+          preferences: this.preferences,
+        };
+      }
+    }
+
+    // Admin class extending User
+    class Admin extends User {
+      constructor(name, email) {
+        super(name, email);
+        this.role = "Admin";
+      }
+
+      deleteUser(userName) {
+        const userIndex = users.findIndex(user => user.name === userName);
+        if (userIndex !== -1) {
+          users.splice(userIndex, 1);
+          renderUsers();
+        }
+      }
+    }
+
+    // Subscriber class extending User
+    class Subscriber extends User {
+      constructor(name, email) {
+        super(name, email);
+        this.role = "Subscriber";
+      }
+    }
+
+    // User list
+    const users = [];
+
+    // Function to add a user
+    function addUser() {
+      const userName = document.getElementById("userName").value.trim();
+      const userEmail = document.getElementById("userEmail").value.trim();
+      const userRole = document.getElementById("userRole").value;
+
+      if (!userName || !userEmail) {
+        alert("Name and Email are required!");
+        return;
+      }
+
+      let newUser;
+      if (userRole === "Admin") {
+        newUser = new Admin(userName, userEmail);
+      } else {
+        newUser = new Subscriber(userName, userEmail);
+      }
+
+      users.push(newUser);
+      document.getElementById("userName").value = "";
+      document.getElementById("userEmail").value = "";
+      renderUsers();
+    }
+
+    // Function to render users
+    function renderUsers() {
+      const usersContainer = document.getElementById("usersContainer");
+      usersContainer.innerHTML = ""; // Clear existing users
+
+      users.forEach(user => {
+        const userElement = document.createElement("li");
+        userElement.className = "border p-4 rounded bg-gray-100";
+
+        const { name, email, preferences, role } = user.getProfile();
+
+        let userHTML = `
+          <div>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Role:</strong> ${role}</p>
+            <p><strong>Preferences:</strong> ${Object.keys(preferences).length > 0 ? JSON.stringify(preferences) : "None"}</p>
+          </div>
+          <div class="mt-2 space-x-2">
+            <button 
+              onclick="updatePreferences('${name}')" 
+              class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
+              Update Preferences
+            </button>
+            ${
+              role === "Admin"
+                ? `<button onclick="deleteUser('${name}')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete User</button>`
+                : ""
+            }
+          </div>
+        `;
+
+        userElement.innerHTML = userHTML;
+        usersContainer.appendChild(userElement);
+      });
+    }
+
+    // Function to update user preferences
+    function updatePreferences(userName) {
+      const user = users.find(user => user.name === userName);
+      if (user) {
+        const newPreferences = prompt("Enter new preferences as key-value pairs (e.g., theme:dark, language:en):");
+        if (newPreferences) {
+          const preferencesObj = Object.fromEntries(
+            newPreferences.split(",").map(pair => pair.split(":").map(str => str.trim()))
+          );
+          user.updatePreferences(preferencesObj);
+          renderUsers();
+        }
+      }
+    }
+
+    // Function to delete a user (Admin only)
+    function deleteUser(userName) {
+      const admin = users.find(user => user.role === "Admin");
+      if (admin) {
+        admin.deleteUser(userName);
+      } else {
+        alert("Only Admins can delete users!");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Address Book</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Digital Address Book</h1>
+
+    <!-- Add Contact Form -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Add a New Contact</h2>
+      <input id="contactName" type="text" class="w-full p-3 border rounded-lg mb-4" placeholder="Name">
+      <input id="contactEmail" type="email" class="w-full p-3 border rounded-lg mb-4" placeholder="Email">
+      <input id="contactPhone" type="text" class="w-full p-3 border rounded-lg mb-4" placeholder="Phone Number">
+      <button id="addContact" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+        Add Contact
+      </button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Search Contacts</h2>
+      <input id="searchContact" type="text" class="w-full p-3 border rounded-lg mb-4" placeholder="Search by Name or Email">
+    </div>
+
+    <!-- Contacts List -->
+    <div id="contactList" class="space-y-4">
+      <!-- Contacts will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

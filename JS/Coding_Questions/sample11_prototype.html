@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Create Students Info For Team 22;
+
+        // common Properties 
+
+        class CommonProperties {
+            constructor() {
+                this.courseName = "Front End Development";
+                this.instituteName = "VMR InfoTech";
+                this.city = "Chittoor";
+            }
+        }
+
+        class StudentInfo extends  CommonProperties{
+            constructor(name, contactNo, age) {
+                super();
+                this.age = age;
+                this.contactNo = contactNo;
+                this.name = name;
+            }
+        }
+
+        const studnet1 = new StudentInfo("Nethaji","5555555",20);
+        console.log(studnet1)
+        // Students Info 
+
+        const student2 = new StudentInfo("Theju","1111111",19);
+
+        console.log(student2)
+
+    </script>
+</body>
+
+</html>

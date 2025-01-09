@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-8">Inventory Management System</h1>
+
+    <!-- Add Product Section -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Add Product</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <input 
+          type="text" 
+          id="productId" 
+          placeholder="Product ID (e.g., P001)" 
+          class="border p-2 rounded w-full"
+        />
+        <input 
+          type="text" 
+          id="productName" 
+          placeholder="Product Name" 
+          class="border p-2 rounded w-full"
+        />
+        <input 
+          type="number" 
+          id="productQuantity" 
+          placeholder="Quantity" 
+          class="border p-2 rounded w-full"
+        />
+        <button 
+          onclick="addProduct()" 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Add Product
+        </button>
+      </div>
+    </div>
+
+    <!-- Product List Section -->
+    <div class="bg-white shadow-md rounded p-4">
+      <h2 class="text-xl font-semibold mb-4">Product Inventory</h2>
+      <div id="productList" class="space-y-4">
+        <!-- Product details will be displayed dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Inventory object to manage products
+    const inventory = {
+      products: {},
+
+      // Add a new product
+      addProduct(id, name, quantity) {
+        if (this.products[id]) {
+          alert(`Product ID ${id} already exists!`);
+          return;
+        }
+        this.products[id] = { name, quantity };
+        this.renderProducts();
+      },
+
+      // Update product quantity
+      updateProduct(id, quantity) {
+        if (!this.products[id]) {
+          alert(`Product ID ${id} does not exist!`);
+          return;
+        }
+        this.products[id].quantity += quantity;
+        this.renderProducts();
+      },
+
+      // Remove a product
+      removeProduct(id) {
+        if (!this.products[id]) {
+          alert(`Product ID ${id} does not exist!`);
+          return;
+        }
+        delete this.products[id];
+        this.renderProducts();
+      },
+
+      // List all products
+      listProducts() {
+        return Object.keys(this.products).map(id => ({
+          id,
+          ...this.products[id],
+        }));
+      },
+
+      // Render products dynamically
+      renderProducts() {
+        const productList = document.getElementById("productList");
+        productList.innerHTML = "";
+
+        const products = this.listProducts();
+
+        if (products.length === 0) {
+          productList.innerHTML = `<p class="text-gray-500">No products in inventory.</p>`;
+          return;
+        }
+
+        products.forEach(product => {
+          const productElement = document.createElement("div");
+          productElement.className = "border p-4 rounded bg-gray-100 flex justify-between items-center";
+
+          productElement.innerHTML = `
+            <div>
+              <p><strong>ID:</strong> ${product.id}</p>
+              <p><strong>Name:</strong> ${product.name}</p>
+              <p><strong>Quantity:</strong> ${product.quantity}</p>
+            </div>
+            <div class="space-x-2">
+              <button onclick="updateProductPrompt('${product.id}')" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Update</button>
+              <button onclick="removeProduct('${product.id}')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Remove</button>
+            </div>
+          `;
+
+          productList.appendChild(productElement);
+        });
+      },
+    };
+
+    // Add a product
+    function addProduct() {
+      const id = document.getElementById("productId").value.trim();
+      const name = document.getElementById("productName").value.trim();
+      const quantity = parseInt(document.getElementById("productQuantity").value.trim(), 10);
+
+      if (!id || !name || isNaN(quantity) || quantity <= 0) {
+        alert("Please provide valid product details.");
+        return;
+      }
+
+      inventory.addProduct(id, name, quantity);
+
+      // Clear input fields
+      document.getElementById("productId").value = "";
+      document.getElementById("productName").value = "";
+      document.getElementById("productQuantity").value = "";
+    }
+
+    // Update product quantity
+    function updateProductPrompt(id) {
+      const product = inventory.products[id];
+      if (!product) {
+        alert(`Product ID ${id} does not exist!`);
+        return;
+      }
+
+      const quantity = parseInt(prompt(`Enter quantity to update for ${product.name} (current: ${product.quantity}):`), 10);
+      if (isNaN(quantity)) {
+        alert("Invalid quantity!");
+        return;
+      }
+
+      inventory.updateProduct(id, quantity);
+    }
+
+    // Remove a product
+    function removeProduct(id) {
+      if (confirm(`Are you sure you want to remove product ID ${id}?`)) {
+        inventory.removeProduct(id);
+      }
+    }
+
+    // Initial render
+    inventory.renderProducts();
+  </script>
+</body>
+</html>

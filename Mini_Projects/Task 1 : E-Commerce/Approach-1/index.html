@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    .form-control {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>E-Commerce Cart</h1>
+    
+    <!-- Add Product Form -->
+    <div>
+      <h2>Add Product</h2>
+      <div class="form-control">
+        <input type="text" id="productName" placeholder="Product Name" />
+      </div>
+      <div class="form-control">
+        <input type="number" id="productPrice" placeholder="Product Price" />
+      </div>
+      <button id="addProduct">Add Product</button>
+    </div>
+
+    <!-- Cart Table -->
+    <h2>Cart Items</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="cartItems">
+        <!-- Cart items will be dynamically inserted here -->
+      </tbody>
+    </table>
+
+    <!-- Total Price -->
+    <h3>Total Price: $<span id="totalPrice">0</span></h3>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

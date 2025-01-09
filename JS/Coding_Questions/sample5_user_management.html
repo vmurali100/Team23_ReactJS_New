@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">User Profile Management</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Form to create a user -->
+      <div class="col-span-1 bg-white shadow-md rounded px-8 py-6">
+        <h2 class="text-xl font-bold mb-4">Create User</h2>
+        <form id="userForm" class="space-y-4">
+          <div>
+            <label class="block text-gray-700 font-bold mb-2" for="name">Name</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" id="name" type="text" placeholder="Enter name">
+          </div>
+          <div>
+            <label class="block text-gray-700 font-bold mb-2" for="email">Email</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" id="email" type="email" placeholder="Enter email">
+          </div>
+          <div>
+            <label class="block text-gray-700 font-bold mb-2" for="preferences">Preferences</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" id="preferences" type="text" placeholder="Enter preferences (comma separated)">
+          </div>
+          <div>
+            <label class="block text-gray-700 font-bold mb-2" for="role">Role</label>
+            <select id="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+              <option value="Subscriber">Subscriber</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Add User</button>
+        </form>
+      </div>
+
+      <!-- Display user list -->
+      <div class="col-span-2 bg-white shadow-md rounded px-8 py-6">
+        <h2 class="text-xl font-bold mb-4">User List</h2>
+        <div>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-4" id="search" type="text" placeholder="Search users by name, email, or role">
+        </div>
+        <div id="userList" class="space-y-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    class User {
+      constructor(name, email, preferences, role) {
+        this.name = name;
+        this.email = email;
+        this.preferences = preferences;
+        this.role = role;
+      }
+
+      updatePreferences(newPreferences) {
+        Object.assign(this.preferences, newPreferences);
+      }
+    }
+
+    class Admin extends User {
+      constructor(name, email, preferences) {
+        super(name, email, preferences, 'Admin');
+      }
+    }
+
+    class Subscriber extends User {
+      constructor(name, email, preferences) {
+        super(name, email, preferences, 'Subscriber');
+      }
+    }
+
+    const users = [
+      new Subscriber("John Doe", "john.doe@example.com", ["Dark Mode", "Notifications"]),
+      new Admin("Jane Smith", "jane.smith@example.com", ["Light Mode", "Weekly Reports"])
+    ];
+    const userList = document.getElementById('userList');
+    const userForm = document.getElementById('userForm');
+    const searchInput = document.getElementById('search');
+
+    function renderUsers(filter = '') {
+      userList.innerHTML = '';
+      users
+        .filter(user => {
+          const searchText = filter.toLowerCase();
+          return (
+            user.name.toLowerCase().includes(searchText) ||
+            user.email.toLowerCase().includes(searchText) ||
+            user.role.toLowerCase().includes(searchText)
+          );
+        })
+        .forEach((user, index) => {
+          const userDiv = document.createElement('div');
+          userDiv.className = 'p-4 bg-gray-100 rounded shadow';
+          userDiv.innerHTML = `
+            <p><strong>Name:</strong> ${user.name}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Preferences:</strong> ${user.preferences.join(', ')}</p>
+            <p><strong>Role:</strong> ${user.role}</p>
+            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded mt-2" onclick="editUser(${index})">Edit</button>
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded mt-2" onclick="deleteUser(${index})">Delete</button>
+          `;
+          userList.appendChild(userDiv);
+        });
+    }
+
+    function editUser(index) {
+      const user = users[index];
+      document.getElementById('name').value = user.name;
+      document.getElementById('email').value = user.email;
+      document.getElementById('preferences').value = user.preferences.join(', ');
+      document.getElementById('role').value = user.role;
+
+      users.splice(index, 1);
+      renderUsers();
+    }
+
+    function deleteUser(index) {
+      users.splice(index, 1);
+      renderUsers();
+    }
+
+    userForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const preferences = document.getElementById('preferences').value.split(',').map(pref => pref.trim());
+      const role = document.getElementById('role').value;
+
+      let user;
+      if (role === 'Admin') {
+        user = new Admin(name, email, preferences);
+      } else {
+        user = new Subscriber(name, email, preferences);
+      }
+
+      users.push(user);
+      renderUsers();
+      userForm.reset();
+    });
+
+    searchInput.addEventListener('input', (event) => {
+      renderUsers(event.target.value);
+    });
+
+    // Initial rendering of predefined users
+    renderUsers();
+  </script>
+</body>
+</html>

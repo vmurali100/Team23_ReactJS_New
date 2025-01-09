@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Post Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-8">Social Media Post Editor</h1>
+
+    <!-- Create Post Section -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Create Post</h2>
+      <textarea id="postContent" rows="3" placeholder="Write your post..." class="border p-2 w-full rounded mb-4"></textarea>
+      <button 
+        onclick="createPost()" 
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Create Post
+      </button>
+    </div>
+
+    <!-- Posts Section -->
+    <div id="postsSection" class="space-y-4">
+      <!-- Posts will be displayed dynamically here -->
+    </div>
+  </div>
+
+  <script>
+    // Post class to manage individual post actions
+    class Post {
+      constructor(content) {
+        this.content = content;
+        this.likes = 0;
+        this.comments = [];
+      }
+
+      likePost() {
+        this.likes += 1;
+        renderPosts();
+      }
+
+      addComment(comment) {
+        this.comments.push(comment);
+        renderPosts();
+      }
+
+      editPost(newContent) {
+        this.content = newContent;
+        renderPosts();
+      }
+
+      clonePost() {
+        return Object.assign(Object.create(Object.getPrototypeOf(this)), this);
+      }
+    }
+
+    // Posts array to manage all posts
+    const posts = [];
+
+    // Function to create a new post
+    function createPost() {
+      const content = document.getElementById('postContent').value.trim();
+      if (!content) {
+        alert('Post content cannot be empty!');
+        return;
+      }
+
+      const newPost = new Post(content);
+      posts.push(newPost);
+      document.getElementById('postContent').value = ''; // Clear input
+      renderPosts();
+    }
+
+    // Function to render all posts
+    function renderPosts() {
+      const postsSection = document.getElementById('postsSection');
+      postsSection.innerHTML = ''; // Clear the section
+
+      posts.forEach((post, index) => {
+        const postContainer = document.createElement('div');
+        postContainer.className = 'bg-white shadow-md rounded p-4';
+
+        postContainer.innerHTML = `
+          <div>
+            <textarea 
+              rows="3"
+              class="border p-2 w-full rounded mb-2"
+              oninput="editPostContent(${index}, this.value)"
+            >${post.content}</textarea>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="font-semibold">Likes:</span> ${post.likes}
+            </div>
+            <div class="space-x-2">
+              <button 
+                onclick="likePost(${index})" 
+                class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+                Like
+              </button>
+              <button 
+                onclick="clonePost(${index})" 
+                class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
+                Clone
+              </button>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="font-semibold mb-2">Comments</h3>
+            <div id="comments-${index}" class="space-y-2">
+              ${post.comments.map(comment => `<div class="bg-gray-100 p-2 rounded">${comment}</div>`).join('')}
+            </div>
+            <div class="flex mt-2">
+              <input 
+                type="text" 
+                id="commentInput-${index}" 
+                placeholder="Write a comment..." 
+                class="border p-2 flex-1 rounded mr-2"
+              />
+              <button 
+                onclick="addComment(${index})" 
+                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                Comment
+              </button>
+            </div>
+          </div>
+        `;
+
+        postsSection.appendChild(postContainer);
+      });
+    }
+
+    // Post actions
+    function likePost(index) {
+      posts[index].likePost();
+    }
+
+    function addComment(index) {
+      const commentInput = document.getElementById(`commentInput-${index}`);
+      const comment = commentInput.value.trim();
+      if (!comment) {
+        alert('Comment cannot be empty!');
+        return;
+      }
+      posts[index].addComment(comment);
+      commentInput.value = ''; // Clear input
+    }
+
+    function editPostContent(index, newContent) {
+      posts[index].editPost(newContent);
+    }
+
+    function clonePost(index) {
+      const clonedPost = posts[index].clonePost();
+      posts.push(clonedPost);
+      renderPosts();
+    }
+  </script>
+</body>
+</html>

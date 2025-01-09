@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var product1 = {
+            buyingPrice: 100,
+            sellingPrice: 120,
+            result: function () {
+                console.log(this.sellingPrice - this.buyingPrice)
+            }
+        }
+
+        var product2 = {
+            buyingPrice: 200,
+            sellingPrice: 290,
+
+        }
+
+        var product3 = {
+            buyingPrice: 50,
+            sellingPrice: 30,
+      
+        }
+
+        product1.result()
+        product1.result.call(product2)
+        product1.result.call(product3)
+        
+        // product2.result()
+        // product3.result()
+    </script>
+</body>
+
+</html>

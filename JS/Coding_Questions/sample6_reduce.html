@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var nos = [3, 4, 5, 6, 7, 10, 67, 4, 5, 7, 8]
+        const result = nos.reduce((acc, num) => {
+            console.log(num)
+            if(!acc.includes(num)){
+                acc.push(num)
+            }
+            return acc 
+            // return acc + num
+        }, [])
+
+        console.log(result)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Inventory Management System</h1>
+
+    <!-- Add Product Form -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Add a New Product</h2>
+      <input id="productName" type="text" class="w-full p-3 border rounded-lg mb-4" placeholder="Product Name">
+      <input id="productQuantity" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="Quantity">
+      <button id="addProduct" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+        Add Product
+      </button>
+    </div>
+
+    <!-- Product List -->
+    <div id="productList" class="space-y-4">
+      <!-- Products will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-8">Library Management System</h1>
+
+    <!-- Add Book Section -->
+    <div class="bg-white shadow-md rounded p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Add Book</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <input 
+          type="text" 
+          id="bookTitle" 
+          placeholder="Book Title" 
+          class="border p-2 rounded w-full"
+        />
+        <input 
+          type="text" 
+          id="bookAuthor" 
+          placeholder="Book Author" 
+          class="border p-2 rounded w-full"
+        />
+        <button 
+          onclick="addBook()" 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Add Book
+        </button>
+      </div>
+    </div>
+
+    <!-- Book List Section -->
+    <div class="bg-white shadow-md rounded p-4">
+      <h2 class="text-xl font-semibold mb-4">Book List</h2>
+      <div id="bookList" class="space-y-4">
+        <!-- Book details will be displayed dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Library object to manage books
+    const library = {
+      books: [],
+
+      // Add a new book to the library
+      addBook(title, author) {
+        this.books.push({
+          title,
+          author,
+          isAvailable: true,
+        });
+        renderBooks();
+      },
+
+      // Lend a book if available
+      lendBook(title) {
+        const book = this.books.find(book => book.title === title);
+        if (book && book.isAvailable) {
+          book.isAvailable = false;
+          renderBooks();
+        } else {
+          alert("This book is not available for lending.");
+        }
+      },
+
+      // Return a book to the library
+      returnBook(title) {
+        const book = this.books.find(book => book.title === title);
+        if (book && !book.isAvailable) {
+          book.isAvailable = true;
+          renderBooks();
+        } else {
+          alert("This book is not currently lent out.");
+        }
+      },
+
+      // List all books
+      listBooks() {
+        return Object.entries(this.books).map(([index, book]) => ({
+          id: parseInt(index) + 1,
+          title: book.title,
+          author: book.author,
+          isAvailable: book.isAvailable,
+        }));
+      },
+    };
+
+    // Function to add a book
+    function addBook() {
+      const title = document.getElementById("bookTitle").value.trim();
+      const author = document.getElementById("bookAuthor").value.trim();
+
+      if (!title || !author) {
+        alert("Both title and author are required.");
+        return;
+      }
+
+      library.addBook(title, author);
+
+      // Clear input fields
+      document.getElementById("bookTitle").value = "";
+      document.getElementById("bookAuthor").value = "";
+    }
+
+    // Function to render books dynamically
+    function renderBooks() {
+      const bookList = document.getElementById("bookList");
+      bookList.innerHTML = ""; // Clear existing books
+
+      library.listBooks().forEach(book => {
+        const bookElement = document.createElement("div");
+        bookElement.className = "border p-4 rounded bg-gray-100 flex justify-between items-center";
+
+        bookElement.innerHTML = `
+          <div>
+            <p><strong>Title:</strong> ${book.title}</p>
+            <p><strong>Author:</strong> ${book.author}</p>
+            <p><strong>Status:</strong> ${
+              book.isAvailable ? "Available" : "Lent Out"
+            }</p>
+          </div>
+          <div class="space-x-2">
+            ${
+              book.isAvailable
+                ? `<button onclick="lendBook('${book.title}')" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Lend</button>`
+                : `<button onclick="returnBook('${book.title}')" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Return</button>`
+            }
+          </div>
+        `;
+
+        bookList.appendChild(bookElement);
+      });
+    }
+
+    // Functions to lend and return books
+    function lendBook(title) {
+      library.lendBook(title);
+    }
+
+    function returnBook(title) {
+      library.returnBook(title);
+    }
+
+    // Initial rendering
+    renderBooks();
+  </script>
+</body>
+</html>
