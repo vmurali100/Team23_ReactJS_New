@@ -1,0 +1,123 @@
+# Task Management System
+
+## Overview
+The Task Management System is a dynamic web application designed to organize tasks into categories: **Pending**, **In Progress**, and **Completed**. It utilizes advanced JavaScript concepts such as the event loop, generators, and IndexedDB for offline support. The system allows users to add, update, and manage tasks dynamically while providing offline capabilities for persistent data.
+
+---
+
+## Features
+
+### Core Features
+- **Add Tasks**:
+  - Create new tasks and add them to the "Pending" category.
+- **Move Tasks**:
+  - Transition tasks between "Pending," "In Progress," and "Completed" dynamically.
+- **Offline Support**:
+  - Tasks are stored using IndexedDB, ensuring offline accessibility.
+- **Task Sorting**:
+  - Organize tasks by priority or due date using `sort()`.
+- **Dynamic Rendering**:
+  - Tasks are rendered dynamically using JavaScript and Tailwind CSS.
+
+### Advanced Features
+- **Pagination**:
+  - Use generators to paginate tasks for large datasets.
+- **Error Handling**:
+  - Manage server-side errors gracefully using `try...catch`.
+- **Fetch Tasks**:
+  - Retrieve tasks from a server using `fetch()` and `async/await`.
+
+---
+
+## Technologies Used
+- **HTML**: For structuring the web page.
+- **JavaScript**: For dynamic functionality and interactivity.
+  - **IndexedDB**: For offline task management.
+  - **Generators**: For task pagination.
+  - **Event Loop**: For prioritizing asynchronous operations.
+- **Tailwind CSS**: For responsive and clean UI design.
+
+---
+
+## Getting Started
+
+### Prerequisites
+Ensure you have the following installed:
+- A modern web browser (Google Chrome, Firefox, etc.)
+- A code editor (VS Code, Sublime Text, etc.)
+
+### Installation
+1. Clone the repository or download the source code.
+2. Open the project directory.
+3. Open the `index.html` file in your web browser.
+
+---
+
+## Usage
+
+1. **Add a Task**:
+   - Enter a task name in the input field.
+   - Click the "Add Task" button to add the task to the "Pending" category.
+
+2. **Move Tasks**:
+   - Click the "Start" button to move tasks from "Pending" to "In Progress."
+   - Click the "Complete" button to move tasks from "In Progress" to "Completed."
+
+3. **Offline Access**:
+   - Tasks are automatically saved in IndexedDB and will persist across sessions.
+
+4. **Fetch Server Tasks**:
+   - Initial tasks are fetched from the server and displayed dynamically.
+
+---
+
+## Project Structure
+
+```
+Task Management System/
+├── index.html       # Main HTML file
+├── app.js           # JavaScript file with core functionality
+├── README.md        # Project documentation
+└── tailwind.css     # Tailwind CSS (via CDN)
+```
+
+---
+
+## Key Concepts
+
+1. **IndexedDB**:
+   - Enables offline storage of tasks.
+
+2. **Generators**:
+   - Provides a mechanism for paginating large sets of tasks efficiently.
+
+3. **Event Loop**:
+   - Demonstrates the prioritization of tasks using asynchronous programming.
+
+4. **Dynamic Rendering**:
+   - Updates the UI dynamically as tasks are added or moved.
+
+---
+
+## Future Enhancements
+
+- **Task Deletion**:
+  - Add the ability to delete tasks from any category.
+- **Due Dates**:
+  - Allow users to set and sort tasks by due dates.
+- **Notifications**:
+  - Add reminders for tasks in "Pending" or "In Progress."
+- **User Accounts**:
+  - Enable task management across multiple users by integrating authentication.
+
+---
+
+## License
+This project is open-source and free to use for educational and non-commercial purposes.
+
+---
+
+## Acknowledgments
+- Built with Tailwind CSS for modern and responsive design.
+- Inspired by the need for efficient task management systems.
+

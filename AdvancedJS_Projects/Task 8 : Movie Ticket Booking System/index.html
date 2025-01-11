@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Ticket Booking System</title>
+  <script defer src="app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold text-center mb-6">Movie Ticket Booking System</h1>
+
+    <!-- Search Movies Section -->
+    <div class="mb-6">
+      <input id="movie-search" type="text" placeholder="Search movies..." 
+        class="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Theater Layout Section -->
+    <div id="theater-layout" class="bg-white shadow-lg rounded-lg p-4">
+      <h2 class="text-xl font-semibold mb-4">Theater Layout</h2>
+      
+      <!-- Legend -->
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center">
+          <div class="w-6 h-6 bg-green-500 rounded-full mr-2"></div> Available
+        </div>
+        <div class="flex items-center">
+          <div class="w-6 h-6 bg-red-500 rounded-full mr-2"></div> Booked
+        </div>
+      </div>
+
+      <!-- Seats -->
+      <div id="seats" class="grid grid-cols-10 gap-2"></div>
+
+      <div class="mt-4 text-center">
+        <button id="confirm-booking" class="bg-green-500 text-white px-4 py-2 rounded">Confirm Booking</button>
+        <button id="cancel-booking" class="bg-red-500 text-white px-4 py-2 rounded">Cancel Booking</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
