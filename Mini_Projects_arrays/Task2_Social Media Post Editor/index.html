@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Post Editor</title>
+  <script src="app.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold text-center mb-6">Social Media Post Editor</h1>
+
+    <!-- Add Post Section -->
+    <div class="bg-white p-6 rounded shadow mb-6">
+      <form id="addPostForm" class="space-y-4">
+        <textarea
+          id="postContent"
+          rows="3"
+          class="w-full px-3 py-2 border rounded-md"
+          placeholder="What's on your mind?"
+          required
+        ></textarea>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+        >
+          Add Post
+        </button>
+      </form>
+    </div>
+
+    <!-- Posts Section -->
+    <div id="postsContainer" class="space-y-4">
+      <!-- Dynamic posts will appear here -->
+    </div>
+  </div>
+</body>
+</html>

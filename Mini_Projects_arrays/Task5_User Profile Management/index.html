@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile Management</title>
+  <script src="app.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold text-center mb-6">User Profile Management</h1>
+
+    <!-- Add / Update User Form -->
+    <div class="bg-white p-6 rounded shadow mb-6">
+      <form id="userForm" class="space-y-4">
+        <input
+          type="text"
+          id="userName"
+          class="w-full px-3 py-2 border rounded-md"
+          placeholder="Enter name"
+          required
+        />
+        <input
+          type="email"
+          id="userEmail"
+          class="w-full px-3 py-2 border rounded-md"
+          placeholder="Enter email"
+          required
+        />
+        <select
+          id="userRole"
+          class="w-full px-3 py-2 border rounded-md"
+          required
+        >
+          <option value="Subscriber">Subscriber</option>
+          <option value="Admin">Admin</option>
+        </select>
+        <button
+          type="submit"
+          id="userSubmitButton"
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+        >
+          Add User
+        </button>
+      </form>
+    </div>
+
+    <!-- User List Section -->
+    <div id="userList" class="space-y-6">
+      <!-- Dynamic User List Will Be Rendered Here -->
+    </div>
+  </div>
+</body>
+</html>
