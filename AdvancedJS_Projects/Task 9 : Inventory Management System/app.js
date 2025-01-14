@@ -50,7 +50,10 @@ const fetchInventory = async () => {
 // Add product to inventory
 document.getElementById("add-product-btn").addEventListener("click", () => {
   const name = document.getElementById("product-name").value;
-  const quantity = parseInt(document.getElementById("product-quantity").value, 10);
+  const quantity = parseInt(
+    document.getElementById("product-quantity").value,
+    10
+  );
 
   if (!name || isNaN(quantity)) {
     alert("Please provide valid product details!");
@@ -79,7 +82,8 @@ const renderInventory = () => {
 
   inventory.forEach((product) => {
     const productElement = document.createElement("div");
-    productElement.className = "p-4 border rounded flex justify-between items-center";
+    productElement.className =
+      "p-4 border rounded flex justify-between items-center";
 
     productElement.innerHTML = `
       <div>

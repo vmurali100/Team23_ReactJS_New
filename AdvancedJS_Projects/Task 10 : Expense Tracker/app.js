@@ -68,7 +68,8 @@ const renderExpenses = () => {
 
   expenses.forEach((expense) => {
     const expenseElement = document.createElement("div");
-    expenseElement.className = "p-4 border rounded flex justify-between items-center";
+    expenseElement.className =
+      "p-4 border rounded flex justify-between items-center";
 
     expenseElement.innerHTML = `
       <div>

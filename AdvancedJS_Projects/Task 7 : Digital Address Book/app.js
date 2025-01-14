@@ -49,7 +49,8 @@ const renderContacts = () => {
 
   contacts.map((contact) => {
     const contactElement = document.createElement("div");
-    contactElement.className = "p-4 border rounded flex justify-between items-center";
+    contactElement.className =
+      "p-4 border rounded flex justify-between items-center";
 
     contactElement.innerHTML = `
       <div>
@@ -100,7 +101,11 @@ document.getElementById("search").addEventListener("input", (event) => {
 
 // Bulk updates using Web Workers
 if (window.Worker) {
-  const bulkUpdateWorker = new Worker(URL.createObjectURL(new Blob([`
+  const bulkUpdateWorker = new Worker(
+    URL.createObjectURL(
+      new Blob(
+        [
+          `
     onmessage = function(e) {
       const updatedContacts = e.data.map(contact => ({
         ...contact,
@@ -108,7 +113,12 @@ if (window.Worker) {
       }));
       postMessage(updatedContacts);
     };
-  `], { type: "application/javascript" })));
+  `,
+        ],
+        { type: "application/javascript" }
+      )
+    )
+  );
 
   document.getElementById("bulk-update-btn").addEventListener("click", () => {
     bulkUpdateWorker.postMessage(contacts);

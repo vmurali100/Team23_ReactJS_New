@@ -29,7 +29,9 @@ const validateInput = (username, email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!usernameRegex.test(username)) {
-    alert("Invalid username! Must be 3-20 characters long and contain no special characters.");
+    alert(
+      "Invalid username! Must be 3-20 characters long and contain no special characters."
+    );
     return false;
   }
 
@@ -87,14 +89,17 @@ const renderUsers = () => {
 
   users.forEach((user) => {
     const userElement = document.createElement("div");
-    userElement.className = "p-4 border rounded flex justify-between items-center";
+    userElement.className =
+      "p-4 border rounded flex justify-between items-center";
 
     userElement.innerHTML = `
       <div>
         <p><strong>Username:</strong> ${user.username}</p>
         <p><strong>Email:</strong> ${user.email}</p>
         <p><strong>Role:</strong> ${user.role}</p>
-        <p><small><strong>Created At:</strong> ${user[userMetadata].createdAt.toLocaleString()}</small></p>
+        <p><small><strong>Created At:</strong> ${user[
+          userMetadata
+        ].createdAt.toLocaleString()}</small></p>
       </div>
       <div>
         <button class="bg-yellow-500 text-white px-2 py-1 rounded mb-2" 
