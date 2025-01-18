@@ -1,38 +1,72 @@
 const libraryManagement = {
-  books: [],
+  books: [
+    { bookTitle: "Book 1", bookAuthor: "author 1", isAvailable: true },
+    { bookTitle: "Book 2", bookAuthor: "author 2", isAvailable: true },
+    { bookTitle: "Book 3", bookAuthor: "author 3", isAvailable: true },
+    { bookTitle: "Book 4", bookAuthor: "author 4", isAvailable: true },
+  ],
+  borrowBook(i) {
+    this.books[i].isAvailable = !this.books[i].isAvailable;
+    this.renderBooks();
+  },
+  addBook() {
+    const newBook = {
+      id: Date.now(),
+      bookTitle: document.getElementById("bookTitle").value,
+      bookAuthor: document.getElementById("bookAuthor").value,
+      isAvailable: true,
+    };
+    this.books.push(newBook);
+    this.renderBooks();
+    this.resetForm()
+  },
+
+  returnBook(i) {
+    this.books[i].isAvailable = !this.books[i].isAvailable;
+    this.renderBooks();
+  },
   renderBooks() {
-    const bookList = document.getElementById("bookList");
-    bookList.innerHTML = ""; // Clear existing list
-
-    this.books.forEach((book) => {
+    document.getElementById("bookList").innerHTML = "";
+    this.books.forEach((book, i) => {
       const bookDiv = document.createElement("div");
-      bookDiv.className = "bg-white p-4 rounded shadow";
+      bookDiv.setAttribute("class", "bg-white p-4 rounded shadow");
+      const para1 = document.createElement("p");
+      para1.setAttribute("class", "font-semibold");
+      para1.innerHTML =
+        "Book Title : " + book.bookTitle + " by " + book.bookAuthor;
+      bookDiv.appendChild(para1);
 
-      bookDiv.innerHTML = `
-              <p class="font-semibold">${book.title} by ${book.author}</p>
-              <p class="text-sm text-gray-600">${
-                book.isAvailable ? "Available" : "Borrowed"
-              }</p>
-              <div class="mt-4">
-                ${
-                  book.isAvailable
-                    ? `<button
-                        class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                        onclick="libraryManagement.borrowBook(${book.id})"
-                      >
-                        Borrow
-                      </button>`
-                    : `<button
-                        class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
-                        onclick="libraryManagement.returnBook(${book.id})"
-                      >
-                        Return
-                      </button>`
-                }
-              </div>
-            `;
+      const para2 = document.createElement("p");
+      para2.setAttribute("class", "text-sm text-gray-60");
+      para2.innerHTML = book.isAvailable ? "Available" : "Borrowed";
+      bookDiv.appendChild(para2);
 
-      bookList.appendChild(bookDiv);
+      const bookButton = document.createElement("button");
+      bookButton.innerHTML = book.isAvailable ? "Available" : "Borrowed";
+      bookButton.setAttribute(
+        "class",
+        book.isAvailable
+          ? "bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+          : "bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+      );
+      bookButton.setAttribute(
+        "onclick",
+        book.isAvailable
+          ? "libraryManagement.borrowBook(" + i + ")"
+          : "libraryManagement.returnBook(" + i + ")"
+      );
+      bookDiv.appendChild(bookButton);
+
+      document.getElementById("bookList").appendChild(bookDiv);
     });
   },
+  resetForm() {
+    document.getElementById("bookTitle").value = "";
+    document.getElementById("bookAuthor").value = "";
+  },
 };
+
+document.getElementById("bookForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  libraryManagement.addBook();
+});
