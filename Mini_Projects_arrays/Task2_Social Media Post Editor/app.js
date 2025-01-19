@@ -1,5 +1,27 @@
 const socialMediaApp = {
-  posts: [],
+  posts: [
+    {
+      id: 1,
+      content: "Hello world! This is my first post.",
+      likes: 10,
+      comments: ["Great post!", "Welcome to the platform!"],
+      date: new Date("2025-01-01T10:00:00"),
+    },
+    {
+      id: 2,
+      content: "Loving this social media app!",
+      likes: 20,
+      comments: ["Me too!", "It's amazing!"],
+      date: new Date("2025-01-02T15:30:00"),
+    },
+    {
+      id: 3,
+      content: "Just had a great day out with friends.",
+      likes: 15,
+      comments: ["Sounds fun!", "Glad you enjoyed it!"],
+      date: new Date("2025-01-03T18:45:00"),
+    },
+  ],
 
   // Add a new post
   addPost(content) {
@@ -99,3 +121,5 @@ document.getElementById("addPostForm").addEventListener("submit", function (e) {
   socialMediaApp.renderPosts();
   e.target.reset(); // Clear the form
 });
+
+socialMediaApp.renderPosts()

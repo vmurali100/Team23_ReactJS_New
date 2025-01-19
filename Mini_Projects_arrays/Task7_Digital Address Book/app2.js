@@ -107,3 +107,12 @@ document.getElementById("searchInput").addEventListener("input", function (e) {
   addressBook.contacts = addressBook.searchContact(query);
   addressBook.renderContacts();
 });
+
+// Add initial contacts to the address book
+addressBook.addContact("John Doe", "john.doe@example.com", "1234567890");
+addressBook.addContact("Jane Smith", "jane.smith@example.com", "0987654321");
+addressBook.addContact("Alice Johnson", "alice.johnson@example.com", "1122334455");
+addressBook.addContact("Bob Brown", "bob.brown@example.com", "2233445566");
+
+// Render the initial contact list
+addressBook.renderContacts();

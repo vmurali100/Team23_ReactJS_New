@@ -101,3 +101,13 @@ document.getElementById("bookForm").addEventListener("submit", function (e) {
 
   libraryManagement.addBook(title, author);
 });
+
+
+// Add initial books to the library
+libraryManagement.addBook("To Kill a Mockingbird", "Harper Lee");
+libraryManagement.addBook("1984", "George Orwell");
+libraryManagement.addBook("The Great Gatsby", "F. Scott Fitzgerald");
+libraryManagement.addBook("Moby Dick", "Herman Melville");
+
+// Render the initial book list
+libraryManagement.renderBooks();

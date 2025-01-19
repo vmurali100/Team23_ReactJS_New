@@ -134,3 +134,11 @@ function deleteUserPrompt(email) {
   const role = prompt("Enter your role (Admin/Subscriber):", "Subscriber");
   userManagement.deleteUser(email, role);
 }
+
+// Add initial users to the app
+userManagement.addUser("Alice Johnson", "alice@example.com", "Admin");
+userManagement.addUser("Bob Smith", "bob@example.com", "Editor");
+userManagement.addUser("Carol Williams", "carol@example.com", "Subscriber");
+
+// Render the initial user list
+userManagement.renderUsers();

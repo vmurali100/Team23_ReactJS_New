@@ -1,8 +1,15 @@
 const taskManager = {
   tasks: {
-    pending: [],
-    inProgress: [],
-    completed: [],
+    pending: [
+      { id: 1, name: "Start the project", completed: false, date: new Date("2025-01-10") },
+      { id: 2, name: "Set up the environment", completed: false, date: new Date("2025-01-11") },
+    ],
+    inProgress: [
+      { id: 3, name: "Develop the feature module", completed: false, date: new Date("2025-01-12") },
+    ],
+    completed: [
+      { id: 4, name: "Plan the project", completed: true, date: new Date("2025-01-09") },
+    ],
   },
 
   // Add a new task
@@ -85,3 +92,5 @@ document.getElementById("addTaskForm").addEventListener("submit", function (e) {
   taskManager.addTask(taskName);
   e.target.reset();
 });
+
+taskManager.renderTasks()

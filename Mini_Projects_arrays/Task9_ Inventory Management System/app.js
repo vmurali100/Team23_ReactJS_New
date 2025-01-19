@@ -113,3 +113,12 @@ document.getElementById("productForm").addEventListener("submit", function (e) {
     alert("Please enter valid product details!");
   }
 });
+
+// Add initial products to the inventory
+inventorySystem.addProduct("Apples", 50);
+inventorySystem.addProduct("Bananas", 30);
+inventorySystem.addProduct("Oranges", 20);
+inventorySystem.addProduct("Grapes", 15);
+
+// Render the initial product list
+inventorySystem.renderProducts();

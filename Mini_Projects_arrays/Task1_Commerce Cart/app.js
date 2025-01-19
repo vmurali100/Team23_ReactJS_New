@@ -1,5 +1,11 @@
 const cart = {
-  items: [],
+  items: [
+    { id: 1, name: "Apple", price: 1.2 },
+    { id: 2, name: "Banana", price: 0.8 },
+    { id: 3, name: "Orange", price: 1.5 },
+    { id: 4, name: "Milk", price: 3.0 },
+    { id: 5, name: "Bread", price: 2.5 },
+  ],
 
   addProduct(product) {
     const exists = this.items.find((item) => item.id === product.id);
@@ -56,6 +62,7 @@ function removeFromCart(productId) {
   cart.removeProduct(productId);
   cart.renderCart();
 }
+cart.renderCart();
 
 // Attach event listeners
 document
