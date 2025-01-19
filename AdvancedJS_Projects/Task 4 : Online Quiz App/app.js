@@ -13,28 +13,6 @@ const createTimer = (duration, onTick, onEnd) => {
   return () => clearInterval(intervalId); // Return a function to clear the timer
 };
 
-// Web Worker setup for scoring
-if (window.Worker) {
-  const scoreWorker = new Worker(
-    URL.createObjectURL(
-      new Blob(
-        [
-          `
-      onmessage = function(e) {
-        const { answers, correctAnswers } = e.data;
-        const score = answers.reduce((acc, answer, index) => {
-          return acc + (answer === correctAnswers[index] ? 1 : 0);
-        }, 0);
-        postMessage(score);
-      };
-    `,
-        ],
-        { type: "application/javascript" }
-      )
-    )
-  );
-}
-
 // Fetch questions dynamically
 const fetchQuestions = async (category = "9", amount = 5) => {
   try {
@@ -108,16 +86,15 @@ const moveToNextQuestion = (questions) => {
   renderQuestion(questions);
 };
 
-// Calculate score using Web Worker
+// Calculate score directly
 const calculateScore = (answers, correctAnswers) => {
-  if (window.Worker) {
-    scoreWorker.postMessage({ answers, correctAnswers });
-    scoreWorker.onmessage = (e) => {
-      document.getElementById(
-        "quiz-container"
-      ).innerHTML = `<div class='text-center font-bold text-lg'>Your Score: ${e.data}/${correctAnswers.length}</div>`;
-    };
-  }
+  const score = answers.reduce((acc, answer, index) => {
+    return acc + (answer === correctAnswers[index] ? 1 : 0);
+  }, 0);
+
+  document.getElementById(
+    "quiz-container"
+  ).innerHTML = `<div class='text-center font-bold text-lg'>Your Score: ${score}/${correctAnswers.length}</div>`;
 };
 
 // Start quiz

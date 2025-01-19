@@ -5,18 +5,17 @@ const categories = {
   completed: [],
 };
 
-// IndexedDB setup
-const dbRequest = indexedDB.open("TaskManagementDB", 1);
-dbRequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore("tasks", { keyPath: "id", autoIncrement: true });
+// Save to localStorage
+const saveToLocalStorage = () => {
+  localStorage.setItem("tasks", JSON.stringify(categories));
 };
 
-const saveToIndexedDB = (task) => {
-  const db = dbRequest.result;
-  const transaction = db.transaction("tasks", "readwrite");
-  const store = transaction.objectStore("tasks");
-  store.add(task);
+// Load tasks from localStorage
+const loadFromLocalStorage = () => {
+  const storedTasks = localStorage.getItem("tasks");
+  if (storedTasks) {
+    Object.assign(categories, JSON.parse(storedTasks));
+  }
 };
 
 // Render tasks dynamically
@@ -57,7 +56,7 @@ document.getElementById("add-task-btn").addEventListener("click", () => {
   if (taskName) {
     const task = { name: taskName, status: "pending" };
     categories.pending.push(task);
-    saveToIndexedDB(task);
+    saveToLocalStorage();
     renderTasks();
     document.getElementById("task-name").value = "";
   }
@@ -68,15 +67,9 @@ const moveTask = (index, fromCategory, toCategory) => {
   const task = categories[fromCategory].splice(index, 1)[0];
   task.status = toCategory;
   categories[toCategory].push(task);
+  saveToLocalStorage();
   renderTasks();
 };
-
-// Generators for pagination
-function* paginateTasks(tasks, pageSize) {
-  for (let i = 0; i < tasks.length; i += pageSize) {
-    yield tasks.slice(i, i + pageSize);
-  }
-}
 
 // Fetch and update tasks
 const fetchTasks = async () => {
@@ -87,31 +80,16 @@ const fetchTasks = async () => {
     data.slice(0, 10).forEach((task) => {
       categories.pending.push({ name: task.title, status: "pending" });
     });
+    saveToLocalStorage();
     renderTasks();
   } catch (error) {
     console.error("Error fetching tasks:", error);
   }
 };
 
-// Offline task management
-dbRequest.onsuccess = () => {
-  const db = dbRequest.result;
-  const transaction = db.transaction("tasks", "readonly");
-  const store = transaction.objectStore("tasks");
-  const tasks = [];
-  store.openCursor().onsuccess = (event) => {
-    const cursor = event.target.result;
-    if (cursor) {
-      tasks.push(cursor.value);
-      categories[cursor.value.status].push(cursor.value);
-      cursor.continue();
-    } else {
-      renderTasks();
-    }
-  };
-};
-
 // Initial render
 document.addEventListener("DOMContentLoaded", () => {
+  loadFromLocalStorage();
+  renderTasks();
   fetchTasks();
 });

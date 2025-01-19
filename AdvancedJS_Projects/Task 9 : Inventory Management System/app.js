@@ -1,20 +1,9 @@
-// IndexedDB setup
-const dbRequest = indexedDB.open("InventoryDB", 1);
-dbRequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore("products", { keyPath: "id", autoIncrement: true });
-};
-
-const saveToIndexedDB = (product) => {
-  const db = dbRequest.result;
-  const transaction = db.transaction("products", "readwrite");
-  const store = transaction.objectStore("products");
-  store.add(product);
-};
+// Inventory data
+let inventory = [];
 
 // Proxy for stock validation
-const createInventoryProxy = (inventory) => {
-  return new Proxy(inventory, {
+const createInventoryProxy = (product) => {
+  return new Proxy(product, {
     set(target, property, value) {
       if (property === "quantity" && value < 0) {
         throw new Error("Stock quantity cannot be negative!");
@@ -24,9 +13,6 @@ const createInventoryProxy = (inventory) => {
     },
   });
 };
-
-// Inventory data
-let inventory = [];
 
 // Fetch inventory data from server
 const fetchInventory = async () => {
@@ -67,13 +53,28 @@ document.getElementById("add-product-btn").addEventListener("click", () => {
   });
 
   inventory.push(newProduct);
-  saveToIndexedDB(newProduct);
+  saveToLocalStorage();
   renderInventory();
 
   // Clear input fields
   document.getElementById("product-name").value = "";
   document.getElementById("product-quantity").value = "";
 });
+
+// Save inventory to localStorage
+const saveToLocalStorage = () => {
+  localStorage.setItem("inventory", JSON.stringify(inventory));
+};
+
+// Load inventory from localStorage
+const loadFromLocalStorage = () => {
+  const storedInventory = localStorage.getItem("inventory");
+  if (storedInventory) {
+    inventory = JSON.parse(storedInventory).map((product) =>
+      createInventoryProxy(product)
+    );
+  }
+};
 
 // Render inventory dynamically
 const renderInventory = () => {
@@ -113,6 +114,7 @@ const updateProduct = (id, action) => {
     } else if (action === "decrease" && product.quantity > 0) {
       product.quantity--;
     }
+    saveToLocalStorage();
     renderInventory();
   }
 };
@@ -120,8 +122,12 @@ const updateProduct = (id, action) => {
 // Remove product
 const removeProduct = (id) => {
   inventory = inventory.filter((product) => product.id !== id);
+  saveToLocalStorage();
   renderInventory();
 };
 
 // Initialize application
-document.addEventListener("DOMContentLoaded", fetchInventory);
+document.addEventListener("DOMContentLoaded", () => {
+  loadFromLocalStorage();
+  renderInventory();
+});

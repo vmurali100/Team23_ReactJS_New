@@ -1,6 +1,3 @@
-// Symbol for unique user metadata
-const userMetadata = Symbol("userMetadata");
-
 // User data
 let users = [];
 
@@ -15,7 +12,7 @@ const fetchUsers = async () => {
       username: user.username,
       email: user.email,
       role: "Subscriber",
-      [userMetadata]: { createdAt: new Date() },
+      metadata: { createdAt: new Date() }, // Using a regular property instead of Symbol
     }));
     renderUsers();
   } catch (error) {
@@ -56,7 +53,7 @@ document.getElementById("add-user-btn").addEventListener("click", () => {
     username,
     email,
     role,
-    [userMetadata]: { createdAt: new Date() },
+    metadata: { createdAt: new Date() }, // Using a regular property
   };
 
   users.push(newUser);
@@ -97,9 +94,7 @@ const renderUsers = () => {
         <p><strong>Username:</strong> ${user.username}</p>
         <p><strong>Email:</strong> ${user.email}</p>
         <p><strong>Role:</strong> ${user.role}</p>
-        <p><small><strong>Created At:</strong> ${user[
-          userMetadata
-        ].createdAt.toLocaleString()}</small></p>
+        <p><small><strong>Created At:</strong> ${user.metadata.createdAt.toLocaleString()}</small></p>
       </div>
       <div>
         <button class="bg-yellow-500 text-white px-2 py-1 rounded mb-2" 
