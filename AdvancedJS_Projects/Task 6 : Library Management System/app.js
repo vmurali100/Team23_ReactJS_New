@@ -1,21 +1,22 @@
-// Proxy for managing book lending
-const createLibraryProxy = (library) => {
-  return new Proxy(library, {
-    get(target, property) {
-      return target[property];
-    },
-    set(target, property, value) {
-      if (
-        property === "status" &&
-        value !== "Available" &&
-        value !== "Lent Out"
-      ) {
+// Helper function to create a book object with validation
+const createBook = ({ id, title, author, status }) => {
+  console.log({ id, title, author, status })
+  if (status !== "Available" && status !== "Lent Out") {
+    throw new Error("Invalid book status!");
+  }
+
+  return {
+    id,
+    title,
+    author,
+    status,
+    setStatus(newStatus) {
+      if (newStatus !== "Available" && newStatus !== "Lent Out") {
         throw new Error("Invalid book status!");
       }
-      target[property] = value;
-      return true;
+      this.status = newStatus;
     },
-  });
+  };
 };
 
 // Book data
@@ -24,7 +25,6 @@ let library = [];
 // Closures for lending durations
 const createLendingTracker = () => {
   const lendingDurations = new Map();
-
   return {
     lendBook: (bookId) => {
       lendingDurations.set(bookId, Date.now());
@@ -48,8 +48,9 @@ const fetchBooks = async () => {
     );
     if (!response.ok) throw new Error("Failed to fetch books");
     const data = await response.json();
+
     library = data.works.map((book) =>
-      createLibraryProxy({
+      createBook({
         id: book.key,
         title: book.title,
         author: book.authors?.[0]?.name || "Unknown",
@@ -72,7 +73,7 @@ document.getElementById("add-book-btn").addEventListener("click", () => {
     return;
   }
 
-  const newBook = createLibraryProxy({
+  const newBook = createBook({
     id: Date.now().toString(),
     title,
     author,
@@ -119,7 +120,7 @@ const renderBooks = () => {
 const lendBook = (bookId) => {
   const book = library.find((b) => b.id === bookId);
   if (book && book.status === "Available") {
-    book.status = "Lent Out";
+    book.setStatus("Lent Out");
     lendingTracker.lendBook(bookId);
     renderBooks();
   } else {
@@ -132,7 +133,7 @@ const returnBook = (bookId) => {
   const book = library.find((b) => b.id === bookId);
   if (book && book.status === "Lent Out") {
     const duration = lendingTracker.returnBook(bookId);
-    book.status = "Available";
+    book.setStatus("Available");
     renderBooks();
     alert(`Book returned! Lending duration: ${duration} seconds`);
   } else {
