@@ -1,137 +1,24 @@
 {
-  "users": [
+  "contacts": [
     {
-      "fullName": "Murali VMR",
-      "gender": "male",
-      "email": "murali.veesambattu@gmail.com",
-      "id": "1234",
-      "classes": "class1"
+      "contactName": "Ram KK",
+      "contactEmail": "ram@gmail.com",
+      "id": 2
     },
     {
-      "fullName": "V Ram",
-      "gender": "male",
-      "email": "vmurali100@gmail.com",
-      "id": "23456",
-      "classes": "class2"
+      "contactName": "Ram KK",
+      "contactEmail": "ram@gmail.com",
+      "id": 3
     },
     {
-      "fullName": "Leelavathi KM",
-      "gender": "female",
-      "email": "murali.veesambattu@gmail.com",
-      "id": "123433",
-      "classes": "class3"
+      "contactName": "MKKM",
+      "contactEmail": "murali.veesambattu@gmail.com",
+      "id": 4
     },
     {
-      "fullName": "Theju MMM",
-      "gender": "female",
-      "email": "murali.veesambattu@gmail.com",
-      "id": "112233",
-      "classes": "class2"
+      "contactName": "Murali V",
+      "contactEmail": "vmurali100@gmail.com",
+      "id": 5
     }
-  ],
-  "cities":{
-    "cities": [
-      {
-        "name": "Mumbai",
-        "state": "Maharashtra"
-      },
-      {
-        "name": "Delhi",
-        "state": "Delhi"
-      },
-      {
-        "name": "Bangalore",
-        "state": "Karnataka"
-      },
-      {
-        "name": "Hyderabad",
-        "state": "Telangana"
-      },
-      {
-        "name": "Chennai",
-        "state": "Tamil Nadu"
-      },
-      {
-        "name": "Kolkata",
-        "state": "West Bengal"
-      },
-      {
-        "name": "Pune",
-        "state": "Maharashtra"
-      },
-      {
-        "name": "Ahmedabad",
-        "state": "Gujarat"
-      },
-      {
-        "name": "Surat",
-        "state": "Gujarat"
-      },
-      {
-        "name": "Jaipur",
-        "state": "Rajasthan"
-      },
-      {
-        "name": "Lucknow",
-        "state": "Uttar Pradesh"
-      },
-      {
-        "name": "Kanpur",
-        "state": "Uttar Pradesh"
-      },
-      {
-        "name": "Nagpur",
-        "state": "Maharashtra"
-      },
-      {
-        "name": "Indore",
-        "state": "Madhya Pradesh"
-      },
-      {
-        "name": "Patna",
-        "state": "Bihar"
-      },
-      {
-        "name": "Bhopal",
-        "state": "Madhya Pradesh"
-      },
-      {
-        "name": "Ludhiana",
-        "state": "Punjab"
-      },
-      {
-        "name": "Agra",
-        "state": "Uttar Pradesh"
-      },
-      {
-        "name": "Nashik",
-        "state": "Maharashtra"
-      },
-      {
-        "name": "Vadodara",
-        "state": "Gujarat"
-      },
-      {
-        "name": "Coimbatore",
-        "state": "Tamil Nadu"
-      },
-      {
-        "name": "Madurai",
-        "state": "Tamil Nadu"
-      },
-      {
-        "name": "Vijayawada",
-        "state": "Andhra Pradesh"
-      },
-      {
-        "name": "Guwahati",
-        "state": "Assam"
-      },
-      {
-        "name": "Thiruvananthapuram",
-        "state": "Kerala"
-      }
-    ]
-  }
-  
+  ]
 }
