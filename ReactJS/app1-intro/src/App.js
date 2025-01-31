@@ -5,6 +5,7 @@ import { Sam } from "./Components/Sam";
 import SampleChart from "./Components/SampleChart";
 import Student from "./Components/Student";
 import User from "./Components/User";
+import VishalTask from "./Components/EmployeeManagement";
 import Abc from "./Shekar";
 
 import Murali, { MuraliKrishna, Theju } from "./Theju";
@@ -13,8 +14,8 @@ import Murali, { MuraliKrishna, Theju } from "./Theju";
 function App() {
   return (
     <div>
-  
-      <SampleChart/>
+      <VishalTask/>
+      {/* <SampleChart/> */}
     </div>
   );
 }
