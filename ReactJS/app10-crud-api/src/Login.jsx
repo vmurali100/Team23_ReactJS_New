@@ -17,21 +17,33 @@ export default function LoginForm() {
     };
     const credentials = btoa("user:user@123");
 
-    const response = await fetch(
-      "https://demo.onhand.in/posapiv2/v3/account/Activate/POS",
-      {
-        method: "POST",
-        body: JSON.stringify(payLoad),
-        headers: {
-          Authorization: `Basic ${credentials}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://demo.onhand.in/posapiv2/v3/account/Activate/POS",
+        {
+          method: "POST",
+          body: JSON.stringify(payLoad),
+          headers: {
+            Authorization: `Basic ${credentials}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const info = await response.json();
-    console.log(info)
+      // Log the response status and body
+      const info = await response.json();
+      console.log("Token Response: ", info);
+
+      if (response.ok) {
+        console.log("Token successfully fetched");
+      } else {
+        console.error("Failed to fetch token", info);
+      }
+    } catch (error) {
+      console.error("Error fetching token:", error);
+    }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -49,20 +61,33 @@ export default function LoginForm() {
 
     const credentials = btoa("user:user@123");
 
-    const response = await fetch(
-      "https://demo.onhand.in/posapiv2/v3/account/logon",
-      {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          Authorization: `Basic ${credentials}`,
-          "Content-Type": "application/json",
-        },
+    try {
+      const response = await fetch(
+        "https://demo.onhand.in/posapiv2/v3/account/logon",
+        {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {
+            Authorization: `Basic ${credentials}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const info = await response.json();
+      console.log("Login Response: ", info);
+
+      if (response.ok) {
+        console.log("Login successful");
+        getToken(); // Get the token after login
+      } else {
+        console.error("Login failed", info);
+        setError("Login failed");
       }
-    );
-    const info = await response.json();
-    getToken();
-    console.log(info);
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setError("Error logging in");
+    }
   };
 
   return (
